@@ -1,0 +1,7 @@
+Requests direkt im Browser
+	https://developers.facebook.com/tools/explorer/
+
+
+Request:
+	me?fields=interested_in,sports,education,email,favorite_teams,inspirational_people,political,favorite_athletes,religion,posts.limit(1000)
+	me/likes?fields=id,name,category,category_list,created_time	
