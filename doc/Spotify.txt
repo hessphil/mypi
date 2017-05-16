@@ -2,3 +2,8 @@ https://developer.spotify.com/web-api/code-examples/
 
 Play songs through voice commands
 http://jsfiddle.net/JMPerez/p30pb38z/
+
+
+This is a simple Spotify cli-based client with optional Icecast2/shout support!
+It should work for non-premium users, but you must connect your Spotify account to Facebook.
+https://gist.github.com/daniel-j/5044334
