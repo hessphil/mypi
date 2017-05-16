@@ -30,6 +30,10 @@
 }(document, 'script', 'facebook-jssdk'));
 </script>
 
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script src="newsAPI/getNews.js"></script>
+
+
 <div id="navbar-full">
     <div class="container">
         <nav class="navbar navbar-ct-blue navbar-transparent navbar-fixed-top" role="navigation">
@@ -70,6 +74,7 @@
         <div class="motto">
             <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
             </div>
+			<div onclick="getNews()">Click</div>
         </div>
         <div class="img-src" style="background-image: url('assets/img/page1.jpg')"></div>
     </div>
