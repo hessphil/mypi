@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var apitoken = require('rand-token');
+var DataProvider = require('../dataprovider/dataProvider.js');
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
@@ -11,22 +12,11 @@ app.use( bodyParser.json() );
 var dpMap = {};
 var token = [];
 
-/*****************/
-class DataProvider {
-    constructor(fbToken) {
-        this.fbToken = fbToken;
-    }
-
-    getToken() {
-    return this.fbToken;
-    }
-}
-/*****************/
 
 app.get('/getPlayable/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
-			res.end("Your FB-Token is:"+dpMap[token[i]].getToken());
+			res.end("Your FB-Token is:"+dpMap[token[i]].fbDataCrawler.getPlayables());
 		}
        }
        res.end("Invalid API Key" );

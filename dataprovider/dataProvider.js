@@ -1,30 +1,26 @@
 
 //dataProvider class for each client one instance
 class DataProvider {
-	//Variables
-	//datacrawler for news API
-	newsDataCrawler= new NewsDataCrawler{};
-	
-	//datacrawler for music streaming service
-	musicDataCrawler= new MusicDataCrawler{};
-	
-	//datacrawler for facebook
-	fbDataCrawer = new FaceBookDataCrawler{};
-	
-	// InterestProfile
-	interestProfile = new InterestProfile{};
-	
-	//ring buffer for playables
-	playabelArray = [];
-
-	//playables counter
-	playableCounter = 0;
 	//Methods
 		//constructor gets token for facebook account
 		constructor(fbToken){
 		//Connect to facebook
-		this.fBDataCrawler.Connect(fbToken);
-		this.fbDataCrawer.fillInterestProfile(this.interestProfile);
+		//ring buffer for playables
+		this.playabelArray = [];
+
+		//playables counter
+		this.playableCounter = 0;
+		//datacrawler for news API
+		this.newsDataCrawler = new NewsDataCrawler();
+		//datacrawler for music streaming service
+		this.musicDataCrawler= new MusicDataCrawler();
+		//datacrawler for facebook
+		this.fbDataCrawler = new FaceBookDataCrawler();
+		// InterestProfile
+		this.interestProfile = new InterestProfile();
+		
+		this.fbDataCrawler.Connect(fbToken);
+		this.fbDataCrawler.fillInterestProfile(this.interestProfile);
 		
 		}
 		
@@ -48,7 +44,7 @@ class DataProvider {
 		//check for facebook messages
 		
 		//add playables to buffer and increment counter
-		playable = new Playable{};
+		playable = new Playable();
 		playable.setDescription(description);
 		this.playabelArray.push(playable);
 		playableCounter=playableCounter+1;
@@ -98,10 +94,12 @@ class FaceBookDataCrawler {
 		//return message
 	}
 	//Get Playabels
-	getPlayables{
+	getPlayables()
+	{
 		//check for new messages
 		//convert to playables
 		//return playables
+		return this.token;
 	}
 }
 
@@ -134,7 +132,7 @@ class MusicDataCrawler
 	
 	//GetNextSong
 	GetSongOfPlaylist(){
-		newPlayable = new Playable{}
+		newPlayable = new Playable();
 		//return Playable
 	}
 		
@@ -186,3 +184,5 @@ class Playable {
 		this.description=description;
 	}
 }
+
+module.exports = DataProvider;
