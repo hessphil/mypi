@@ -18,12 +18,125 @@
     <!--     Font Awesome     -->
     <link href="bootstrap3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
+	
+
+	<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/soundcloud.player.api.js"></script>
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script type="text/javascript" src="js/mediaplayer.js"></script>
+
+	
+	
+	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+	<script src="assets/js/gsdk-checkbox.js"></script>
+	<script src="assets/js/gsdk-radio.js"></script>
+	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
+	<script src="assets/js/get-shit-done.js"></script>
+    <script src="assets/js/custom.js"></script>
+	
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="newsAPI/getNews.js"></script>
+	
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="mediaplayer/soundcloud.player.api.js"></script>
+	<script type="text/javascript" src="mediaplayer/mediaplayer.js"></script>
+	<script>
+		var mediaplayer = new Mediaplayer('1','htuiRd1JP11Ww0X72T1C3g');
+		$(document).ready(function(){
+			var mediaplayer = new Mediaplayer('1','htuiRd1JP11Ww0X72T1C3g');
+			
+			
+			mediaplayer.addPlayable(new SoundCloudTrack("https://soundcloud.com/nct-1/nct-you-preview-out-soon-for"));
+			mediaplayer.addPlayable(new News("Hallo, I bims 1 News."));
+			mediaplayer.addPlayable(new SoundCloudTrack("https://soundcloud.com/tufftouch/devil-eyes-konflix-feat-leanne"));
+			mediaplayer.addPlayable(new SoundCloudTrack("https://soundcloud.com/nct-1/nct-you-preview-out-soon-for"));
+
+			
+			onVolume = function(volume) {
+				var vol = Math.floor(volume);
+				// save the volume in the cookie
+				var date = new Date();
+				date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+				soundVolume = vol;
+				document.cookie = ['scPlayer_volume=', vol, '; expires=', date.toUTCString(), '; path="/"'].join('');
+				// update the volume in the engine
+				<!-- mediaplayer.soundCloudAudioDriver.setVolume(soundVolume); -->
+			}
+			
+			$(document).bind('scPlayer:onAudioReady', function(event) {
+				console.log('onPlayerReady: audio engine is ready');
+				mediaplayer.soundCloudAudioDriver.play();
+				// set initial volume
+				onVolume(soundVolume);
+			}.bind(mediaplayer));
+				
+			$(document).bind('scPlayer:onMediaPlay', function(event) {
+				console.log('Test');
+				console.log(event);
+				console.log(mediaplayer);
+			}.bind(mediaplayer));
+				
+
+			// when the loaded track is was paused
+			$(document).bind('scPlayer:onMediaPause', function(event) {
+				clearInterval(mediaplayer.positionPoll);
+				mediaplayer.positionPoll = null;
+			});
+			// change the volume
+			$(document).bind('scPlayer:onVolumeChange', function(event) {
+				onVolume(event.volume);
+			});
+			$(document).bind('scPlayer:onMediaEnd', function(event) {
+				onFinish();
+			});
+			$(document).bind('scPlayer:onMediaBuffering', function(event) {
+			});
+			
+			
+
+			
+			$("#playMediaplayer").click(function(event) {
+				mediaplayer.play();
+				<!-- var track = { -->
+					<!-- uri: "https://soundcloud.com/nct-1/nct-you-preview-out-soon-for" -->
+				<!-- } -->
+				<!-- mediaplayer.soundCloudAudioDriver.load(track,'htuiRd1JP11Ww0X72T1C3g',null); -->
+			});
+			$("#stopMediaplayer").click(function(event) {
+				mediaplayer.pause();
+			});
+			
+			$("#skipMediaplayer").click(function(event) {
+				mediaplayer.skip();
+			});
+			
+			$("#addToPlaylist").click(function(event) {
+				var data=$("#addSong").val();
+				if(data && data !="")
+				{
+					var newPlayableType=$("#newPlayableType").val();
+					if(newPlayableType=="News")
+					{
+						mediaplayer.addPlayable(new News(data));
+					
+					}
+					else if(newPlayableType=="SoundCloud")
+					{
+						mediaplayer.addPlayable(new SoundCloudTrack(data));
+					
+					}
+				}
+			});
+		});
+	</script>
+
+	
+	
 </head>
 <body>
 <div id="fb-root"></div>
-
-<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
-<script src="newsAPI/getNews.js"></script>
 
 
 <div id="navbar-full">
@@ -62,78 +175,99 @@
         </nav>
     </div><!--  end container-->
     
-    <div class='blurred-container'>
-        <div class="motto">
-            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
-            </div>
+	<div class='blurred-container'>
+		<div class="motto">
+			<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+			</div>
 			<div onclick="playTheNews()">Play</div>
-        </div>
-        <div class="img-src" style="background-image: url('assets/img/page1.jpg')"></div>
-    </div>
-</div>  
+		</div>
+		<div class="img-src" style="background-image: url('assets/img/page1.jpg')"></div>
+		</div>
+	</div>  
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading" id="accordion">
-                    <span class="glyphicon glyphicon-comment"></span> MyPI Logging
-                    <div class="btn-group pull-right">
-                        <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                    </div>
-                </div>
-            <div class="panel-collapse collapse" id="collapseOne">
-                <div class="panel-body">
-                    <ul class="chat">
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="assets/img/focus.gif" alt="User Avatar" class="img-circle" width=50 />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Focus Online</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="assets/img/Spotify.svg" alt="User Avatar" class="img-circle" width=50px/>
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Maximilian Schmidt</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>   
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="panel panel-primary">
+					<div class="mypiPlayerControl">
+						<button type="button" id="playMediaplayer">Play</button>
+						<button type="button" id="stopMediaplayer">Stop</button>
+						<button type="button" id="skipMediaplayer">Skip</button>
+						
+						<button type="button" id="addToPlaylist">Add</button>
+						<input type="text" id="addSong">
+						
+						<form action="#">
+							<label>Type:
+								<select id="newPlayableType">
+									<option>News</option>
+									<option>SoundCloud</option>
+								</select>
+							</label>
+						</form>
+					</div>
+					<div>
+						<p>
+							https://soundcloud.com/nct-1/nct-you-preview-out-soon-for <br />
+							https://soundcloud.com/tufftouch/devil-eyes-konflix-feat-leanne <br />
+							https://soundcloud.com/nct-1/nct-you-preview-out-soon-for <br />
+							https://soundcloud.com/nct-1/nct-you-preview-out-soon-for <br />
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="panel panel-primary">
+					<div class="panel-heading" id="accordion">
+						<span class="glyphicon glyphicon-comment"></span> MyPI Logging
+						<div class="btn-group pull-right">
+							<a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<span class="glyphicon glyphicon-chevron-down"></span>
+							</a>
+						</div>
+					</div>
+					<div class="panel-collapse collapse" id="collapseOne">
+						<div class="panel-body">
+							<ul class="chat">
+								<li class="left clearfix"><span class="chat-img pull-left">
+									<img src="assets/img/focus.gif" alt="User Avatar" class="img-circle" width=50 />
+								</span>
+									<div class="chat-body clearfix">
+										<div class="header">
+											<strong class="primary-font">Focus Online</strong> <small class="pull-right text-muted">
+												<span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+										</div>
+										<p>
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+											dolor, quis ullamcorper ligula sodales.
+										</p>
+									</div>
+								</li>
+								<li class="right clearfix"><span class="chat-img pull-right">
+									<img src="assets/img/Spotify.svg" alt="User Avatar" class="img-circle" width=50px/>
+								</span>
+									<div class="chat-body clearfix">
+										<div class="header">
+											<small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+											<strong class="pull-right primary-font">Maximilian Schmidt</strong>
+										</div>
+										<p>
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+											dolor, quis ullamcorper ligula sodales.
+										</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
-    <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
-
-	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
-	<script src="assets/js/gsdk-checkbox.js"></script>
-	<script src="assets/js/gsdk-radio.js"></script>
-	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
-	<script src="assets/js/get-shit-done.js"></script>
-    <script src="assets/js/custom.js"></script>
-
-<script type="text/javascript">
-    
-</script>
 </html>
