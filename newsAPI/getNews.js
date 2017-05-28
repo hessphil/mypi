@@ -24,7 +24,7 @@ function createCORSRequest(method, url) {
 }
 
 var validNews;
-var filter="Lindner";
+var filter="Trump";
 
 function getNews(){
 	response = [];
@@ -47,6 +47,7 @@ function getTheLatest(url){
 }
 
 function playTheNews(){
+	console.log("Fick dick");
 	var readNews = response;
 	var responseLength = readNews.length;
 	for (var a=0; a < responseLength; a++)
