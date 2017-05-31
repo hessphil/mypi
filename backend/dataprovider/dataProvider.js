@@ -4,8 +4,9 @@ const Playable = require('./data/playable.js');
 const Text = require('./data/text.js');
 const Song = require('./data/song.js');
 const News = require('./data/news.js');
-const FaceBookDataCrawler = require('./data/facebookdatacrawler.js');
+const FaceBookDataCrawler = require('./datacrawler/facebookdatacrawler.js');
 const InterestProfile = require('./data/interestprofile.js');
+const NewsDataCrawler = require('./datacrawler/NewsDataCrawler.js');
 
 
 
@@ -68,26 +69,14 @@ class DataProvider {
 		}
 			
 	}
+	get(){
+		this.newsDataCrawler.addKeyWord("Trump");
+		this.newsDataCrawler.setRelevantProvider("spiegel");
+		playables=this.newsDataCrawler.getPlayables();
+		console.log(playables);
+	}
 			
 		
-}
-
-
-class NewsDataCrawler{
-	//Variables
-	//Map with all Providers
-	
-	//Methods
-	
-	//SetRelevantProvider
-	
-	//GetNews
-	//gets all news for keyword
-	//return list of playables
-	
-	
-	//GetTheLatest
-
 }
 
 class MusicDataCrawler 
