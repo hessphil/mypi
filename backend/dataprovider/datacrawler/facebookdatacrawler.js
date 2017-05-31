@@ -37,7 +37,7 @@ class FaceBookDataCrawler{
 	
 	request(options)
     .then(fbRes => {
-      Console.Log(json(fbRes));
+      console.log(fbRes);
     })
 		//get keywords
 		
