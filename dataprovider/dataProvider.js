@@ -2,9 +2,9 @@
 
 const Playable = require('./data/playable.js');
 const Text = require('./data/text.js');
-const Sound = require('./data/sound.js');
+const Song = require('./data/song.js');
 const News = require('./data/news.js');
-
+const NewsDataCrawler = require('./datacrawler/NewsDataCrawler.js');
 
 //dataProvider class for each client one instance
 class DataProvider {
@@ -65,12 +65,22 @@ class DataProvider {
 		}
 			
 	}
+	get(){
+		this.newsDataCrawler.addKeyWord("Trump");
+		this.newsDataCrawler.setRelevantProvider("spiegel");
+		playables=this.newsDataCrawler.getPlayables();
+		console.log(playables);
+	}
 			
 		
 }
 
 class FaceBookDataCrawler {
+	constructor()
+	{
+	}
 	//Variables
+	
 	//last timestamp for message
 	
 	//Methods
@@ -110,22 +120,7 @@ class FaceBookDataCrawler {
 	}
 }
 
-class NewsDataCrawler{
-	//Variables
-	//Map with all Providers
-	
-	//Methods
-	
-	//SetRelevantProvider
-	
-	//GetNews
-	//gets all news for keyword
-	//return list of playables
-	
-	
-	//GetTheLatest
 
-}
 
 class MusicDataCrawler 
 {
