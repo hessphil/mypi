@@ -4,10 +4,14 @@ const Playable = require('./data/playable.js');
 const Text = require('./data/text.js');
 const Song = require('./data/song.js');
 const News = require('./data/news.js');
+<<<<<<< HEAD
 const FaceBookDataCrawler = require('./data/facebookdatacrawler.js');
 const InterestProfile = require('./data/interestprofile.js');
 
 
+=======
+const NewsDataCrawler = require('./datacrawler/NewsDataCrawler.js');
+>>>>>>> b032ea7be989a46be934e2620e846844b70d7d09
 
 //dataProvider class for each client one instance
 class DataProvider {
@@ -68,27 +72,65 @@ class DataProvider {
 		}
 			
 	}
+	get(){
+		this.newsDataCrawler.addKeyWord("Trump");
+		this.newsDataCrawler.setRelevantProvider("spiegel");
+		playables=this.newsDataCrawler.getPlayables();
+		console.log(playables);
+	}
 			
 		
 }
 
-
-class NewsDataCrawler{
+<<<<<<< HEAD
+=======
+class FaceBookDataCrawler {
+	constructor()
+	{
+	}
 	//Variables
-	//Map with all Providers
+	
+	//last timestamp for message
 	
 	//Methods
+	//Connect to FaceBook Profile
+	Connect(token)
+	{
+		this.token = token;
+		//test connection?
+	}
 	
-	//SetRelevantProvider
+	//Create Interest Profile
+	fillInterestProfile(interestProfile)
+	{
+		//get keywords
+		
+		//get interprets
+		
+		//get news provider
+	}
 	
-	//GetNews
-	//gets all news for keyword
-	//return list of playables
-	
-	
-	//GetTheLatest
-
+	//Check for Messages
+	checkForNewMessages()
+	{
+		//get all messages
+		//check new ones via timestamp
+		//check if not older than 10 minutes
+		//check if sent or received
+		//return message
+	}
+	//Get Playabels
+	getPlayables()
+	{
+		//check for new messages
+		//convert to playables
+		//return playables
+		return this.token;
+	}
 }
+>>>>>>> b032ea7be989a46be934e2620e846844b70d7d09
+
+
 
 class MusicDataCrawler 
 {
