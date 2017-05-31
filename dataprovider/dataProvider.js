@@ -2,8 +2,11 @@
 
 const Playable = require('./data/playable.js');
 const Text = require('./data/text.js');
-const Sound = require('./data/sound.js');
+const Song = require('./data/song.js');
 const News = require('./data/news.js');
+const FaceBookDataCrawler = require('./data/facebookdatacrawler.js');
+const InterestProfile = require('./data/interestprofile.js');
+
 
 
 //dataProvider class for each client one instance
@@ -69,46 +72,6 @@ class DataProvider {
 		
 }
 
-class FaceBookDataCrawler {
-	//Variables
-	//last timestamp for message
-	
-	//Methods
-	//Connect to FaceBook Profile
-	Connect(token)
-	{
-		this.token = token;
-		//test connection?
-	}
-	
-	//Create Interest Profile
-	fillInterestProfile(interestProfile)
-	{
-		//get keywords
-		
-		//get interprets
-		
-		//get news provider
-	}
-	
-	//Check for Messages
-	checkForNewMessages()
-	{
-		//get all messages
-		//check new ones via timestamp
-		//check if not older than 10 minutes
-		//check if sent or received
-		//return message
-	}
-	//Get Playabels
-	getPlayables()
-	{
-		//check for new messages
-		//convert to playables
-		//return playables
-		return this.token;
-	}
-}
 
 class NewsDataCrawler{
 	//Variables
@@ -163,26 +126,5 @@ class MusicDataCrawler
 	
 }
 
-class InterestProfile
-{
-		constructor(){
-		this.keywordArray=[];
-		this.interpretsArray=[];
-		this.newsProviderArray=[];
-		}
-		
-		addKeyWord(keyword)
-		{
-			this.keywordArray.push(keyword);
-		}
-		addInterpret(interpret)
-		{
-			this.interpretsArray.push(interpret);
-		}
-			addnewsProvider(newsProvider)
-		{
-			this.newsProviderArray.push(newsProvider);
-		}
-}
 
 module.exports = DataProvider;

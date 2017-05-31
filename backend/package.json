@@ -7,6 +7,9 @@
   "dependencies": {
     "express": "^4.14.0",
     "body-parser": "^1.17.2",
-    "rand-token": "^0.3.0"
+    "rand-token": "^0.3.0",
+	"save": "^2.3.0",
+	"request": "^2.81.0",
+	"request-promise": "^4.2.1"
   }
 }
