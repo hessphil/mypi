@@ -10,11 +10,7 @@ class Text extends Playable {
 		
 		super();
 		this.text = text
-		
-		responsiveVoice.setDefaultVoice(voiceType);
 	}
-	
-
 }
 
 module.exports = Text;
