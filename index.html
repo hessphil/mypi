@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+  <title>MyPi - Infotainment System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="utils/fbLogin.js"></script>
+  <link rel="stylesheet" href="utils/fbLogin.css">
+</head>
+<style>
+body {
+   background:#1a1a1a !important;
+}
+</style>
+<body>
+
+<div class="container">
+	<div class="row">
+		<form class="form-signin">
+		<img src="pics/mypi_logo.png" width="100%">
+		<div class="social-box">
+			<div class="row mg-btm">
+             <div class="col-md-12">
+                  <div class="fb-login-button" data-max-rows="1" 
+				  data-size="large" data-button-type="continue_with" 
+				  data-show-faces="false" data-auto-logout-link="false" 
+				  data-use-continue-as="false" data-scope="user_likes"
+				  onclick="testAPI();">
+				  </div>
+			 </div>
+			</div>
+		</div>
+        </div>
+		</div>
+      </form>
+	</div>
+</div>
+</body>
+</html>
