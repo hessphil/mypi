@@ -1,3 +1,10 @@
+'use strict';
+
+const Playable = require('./data/playable.js');
+const Text = require('./data/text.js');
+const Sound = require('./data/sound.js');
+const News = require('./data/news.js');
+
 
 //dataProvider class for each client one instance
 class DataProvider {
@@ -176,13 +183,6 @@ class InterestProfile
 		{
 			this.newsProviderArray.push(newsProvider);
 		}
-}
-
-class Playable {
-	setDescription (description)
-	{
-		this.description=description;
-	}
 }
 
 module.exports = DataProvider;
