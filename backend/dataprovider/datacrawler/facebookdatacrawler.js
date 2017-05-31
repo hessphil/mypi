@@ -1,14 +1,14 @@
 'use strict';
 const request = require('request-promise');  
 
+
 class FaceBookDataCrawler{
 	constructor(facebookdatacrawler) {
 		this.facebookdatacrawler = facebookdatacrawler
-		//this.token = ''
+		this.fbRes = null
 	}
 	
 	//Variables
-	
 	//last timestamp for message
 	
 	//Methods
@@ -19,13 +19,15 @@ class FaceBookDataCrawler{
 		//test connection?
 	}
 	
+
 	//Create Interest Profile
 	fillInterestProfile(interestProfile)
 	{
+		
+	
 	// you need permission for most of these fields
 	const userFieldSet = 'name';
 	
-
 	const options = {
     method: 'GET',
     uri: `https://graph.facebook.com/v2.8/me/likes?fields=id,name,category,category_list`,
@@ -36,15 +38,25 @@ class FaceBookDataCrawler{
 	};
 	
 	request(options)
-    .then(fbRes => {
-      console.log(fbRes);
-    })
-		//get keywords
+    .then(function(fbRes) {
+      this.fbRes = JSON.parse(fbRes).data
+	  var i;
+	  console.log
+	  //console.log(this.fbRes);
+	 for (i=0;i<this.fbRes.length;i++)
+	 {
+		 console.log(this.fbRes[i].name);
+	 }
+    }.bind(this));
+	
+
+	//get keywords
 		
-		//get interprets
+	//get interprets
 		
-		//get news provider
+	//get news provider
 	}
+	
 	
 	//Check for Messages
 	checkForNewMessages()
