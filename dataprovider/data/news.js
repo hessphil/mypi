@@ -1,5 +1,6 @@
 'use strict';
 
+
 const Text = require('./text.js');
 
 class News extends Text {
@@ -13,6 +14,7 @@ class News extends Text {
 	
 	play()
 	{
+		
 		super.play()
 	}
 	

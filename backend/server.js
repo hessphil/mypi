@@ -26,6 +26,11 @@ app.get('/getAllKeys', function (req, res) {
        res.end(token.toString());
 })
 
+app.get('/getDataProvider', function (req, res) {
+		myDataProvider= new DataProvider("test");
+       myDataProvider.get();
+})
+
 app.post('/addToken', function (req, res) {
        // Generate a DataProvider for each Token
 	   if(token.length <5){
