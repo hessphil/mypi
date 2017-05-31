@@ -30,9 +30,9 @@ app.get('/getAllKeys', function (req, res) {
 app.get('/testFB', function (req, res) {
 		var tok = apitoken.generate(16);
 		token.push(tok);
-		dpMap[tok] = new DataProvider('EAACEdEose0cBAJe23ARF3AR9BF7glAZAdnxWd7BPnZC7N3OF1BS9fQPyFTEUf7FNiVdfb8cEZAIbSalims3TXlSeohDfNkYoZChyVwQuRVc7C5KkZAFjXqObkrs9qU3fO6Lg4qCFCDs08t5NGufdgwR1pvstft9iSDgk62G2vorL5gekZAiZCcpiHfqyceGMJR8JNzVusNgdQZDZD');
+		dpMap[tok] = new DataProvider('EAACEdEose0cBABVPgEsONJRZCTAN4KuJOZCm3DQEAQTGgNpNQLbTCyt1REsXeaJ0ooaG7xSGW7nPNVJJNO7k9VdLVMQRWBX45TjnNUnG6xGcS9OOYOHqFrHyRYMv7UVrlVX7JEverv1glZAUxqvx3lAwb7AUnPaif3rf1YBQWYix97buOww3k4tzBxFBNR4dxNwp5ToygZDZD');
        res.end('Test');
-
+})
 app.get('/getDataProvider', function (req, res) {
 		myDataProvider= new DataProvider("test");
        myDataProvider.get();
