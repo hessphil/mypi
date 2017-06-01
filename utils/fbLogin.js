@@ -15,10 +15,6 @@ var accesstoken;
 	  
       // Logged into your app and Facebook.
       testAPI();
-    } else {
-      // The person is not logged into your app or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
     }
   }
 
@@ -69,10 +65,26 @@ var accesstoken;
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
+  // Send the Facebook Token and receiv the token
   function testAPI() {
     FB.api('/me', function(response) {
-      console.log("Response:" +response);
+		console.log(accesstoken);
+		//POST REQUEST TO SERVER
+		var xhr = new XMLHttpRequest();
+		var url = "http://localhost:8080/addToken";
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		var data = JSON.stringify({"token": accesstoken});
+		xhr.send(data);
+		xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+		  //var json = JSON.parse(xhr.responseText);
+		  console.log(xhr.responseText);
+		}
+		};
+		// SAVE API-TOKEN IN COOKIE
+
+		//Redirect 
+		//window.location = "http://www.oth-aw.de";
     });
   }

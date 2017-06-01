@@ -12,11 +12,17 @@ app.use( bodyParser.json() );
 var dpMap = {};
 var token = [];
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 app.get('/getPlayable/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
-			res.end("Your FB-Token is:"+dpMap[token[i]].fbDataCrawler.getPlayables());
+			res.end(dpMap[token[i]].fbDataCrawler.getPlayables());
 		}
        }
        res.end("Invalid API Key" );
@@ -26,13 +32,6 @@ app.get('/getAllKeys', function (req, res) {
        res.end(token.toString());
 })
 
-
-app.get('/testFB', function (req, res) {
-		var tok = apitoken.generate(16);
-		token.push(tok);
-		dpMap[tok] = new DataProvider('EAACEdEose0cBABVPgEsONJRZCTAN4KuJOZCm3DQEAQTGgNpNQLbTCyt1REsXeaJ0ooaG7xSGW7nPNVJJNO7k9VdLVMQRWBX45TjnNUnG6xGcS9OOYOHqFrHyRYMv7UVrlVX7JEverv1glZAUxqvx3lAwb7AUnPaif3rf1YBQWYix97buOww3k4tzBxFBNR4dxNwp5ToygZDZD');
-       res.end('Test');
-})
 app.get('/getDataProvider', function (req, res) {
 		myDataProvider= new DataProvider("test");
        myDataProvider.get();
@@ -45,7 +44,7 @@ app.post('/addToken', function (req, res) {
 		   var tok = apitoken.generate(16);
 		   token.push(tok);
 		   dpMap[tok] = new DataProvider(req.body.token);
-		   res.end("\n\nYour API token is:"+tok+"\n\n");
+		   res.end(tok);
 	   }
 	   else{
 		   res.end("\n\nReached max number of users\n\n");
