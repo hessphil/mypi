@@ -12,6 +12,7 @@ app.use( bodyParser.json() );
 var dpMap = {};
 var token = [];
 
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -41,10 +42,10 @@ app.get('/getDataProvider', function (req, res) {
 app.post('/addToken', function (req, res) {
        // Generate a DataProvider for each Token
 	   if(token.length <5){
-		   var tok = apitoken.generate(16);
-		   token.push(tok);
-		   dpMap[tok] = new DataProvider(req.body.token);
-		   res.end(tok);
+			var tok = apitoken.generate(16);
+			token.push(tok);
+			dpMap[tok] = new DataProvider(req.body.token);
+			res.end(tok);
 	   }
 	   else{
 		   res.end("\n\nReached max number of users\n\n");

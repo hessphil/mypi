@@ -68,7 +68,6 @@ var accesstoken;
   // Send the Facebook Token and receiv the token
   function testAPI() {
     FB.api('/me', function(response) {
-		console.log(accesstoken);
 		//POST REQUEST TO SERVER
 		var xhr = new XMLHttpRequest();
 		var url = "http://localhost:8080/addToken";
@@ -79,11 +78,11 @@ var accesstoken;
 		xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 		  //var json = JSON.parse(xhr.responseText);
+		  // SAVE API-TOKEN IN COOKIE
+		  document.cookie = 'APIToken='+xhr.responseText;
 		  console.log(xhr.responseText);
 		}
 		};
-		// SAVE API-TOKEN IN COOKIE
-
 		//Redirect 
 		//window.location = "http://www.oth-aw.de";
     });
