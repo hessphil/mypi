@@ -81,9 +81,9 @@ var accesstoken;
 		  // SAVE API-TOKEN IN COOKIE
 		  document.cookie = 'APIToken='+xhr.responseText;
 		  console.log(xhr.responseText);
+		  window.location = "http://localhost/mypi/frontend/app.html";
 		}
 		};
-		//Redirect 
-		window.location = "http://localhost/mypi/frontend/app.html";
+		
     });
   }
