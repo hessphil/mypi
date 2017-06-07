@@ -5,6 +5,7 @@ const request = require('request-promise');
 class FaceBookDataCrawler{
 	constructor(facebookdatacrawler) {
 		this.facebookdatacrawler = facebookdatacrawler
+
 		this.fbRes = null
 	}
 	
@@ -21,10 +22,10 @@ class FaceBookDataCrawler{
 	
 
 	//Create Interest Profile
-	fillInterestProfile(interestProfile)
+	fillInterestProfile()
 	{
 		
-	
+	interestProfile = new InterestProfile();
 	// you need permission for most of these fields
 	const userFieldSet = 'name';
 	
@@ -45,8 +46,15 @@ class FaceBookDataCrawler{
 	  //console.log(this.fbRes);
 	 for (i=0;i<this.fbRes.length;i++)
 	 {
-		 console.log(this.fbRes[i].name);
+		 
+		 if (fbRes[i].category=='Musician')
+		 {
+		 //console.log(this.fbRes[i].name);
+		 interestProfile.addInterpret(this.fbRes[i].name);
+		 }
 	 }
+	 
+	 return interestProfile;
     }.bind(this));
 	
 
