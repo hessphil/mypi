@@ -23,8 +23,9 @@ app.use(function(req, res, next) {
 app.get('/getPlayable/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
-			res.end(dpMap[token[i]].fbDataCrawler.getPlayables());
-		}
+				console.log(dpMap[token[i]].transmitPlayables());
+				res.end(dpMap[token[i]].transmitPlayables());
+			}
        }
        res.end("Invalid API Key" );
 })

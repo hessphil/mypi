@@ -33,7 +33,6 @@ class DataProvider {
 		this.fbDataCrawler.Connect(fbToken);
 		this.fbDataCrawler.fillInterestProfile(this.interestProfile,function (value){
 			this.interestProfile=value;
-			console.log(this.interestProfile);
 			}.bind(this));
 		}
 		
@@ -42,8 +41,8 @@ class DataProvider {
 	transmitPlayables()
 	{
 		//transmit last playables in buffer
-		
-			//remove playables from buffer
+		return this.interestProfile;
+		//remove playables from buffer
 	}
 
 	//Run method cyclically collects playables

@@ -87,14 +87,6 @@ class FaceBookDataCrawler{
 		//check if sent or received
 		//return message
 	}
-	//Get Playabels
-	getPlayables()
-	{
-		//check for new messages
-		//convert to playables
-		//return playables
-		return this.interestProfile;
-	}
 }
 
 module.exports = FaceBookDataCrawler;
