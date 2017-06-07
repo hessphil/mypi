@@ -72,7 +72,7 @@ class DataProvider {
 	get(){
 		this.newsDataCrawler.addKeyWord("Trump");
 		this.newsDataCrawler.setRelevantProvider("spiegel");
-		playables=this.newsDataCrawler.getPlayables();
+		var playables=this.newsDataCrawler.getPlayables();
 		console.log(playables);
 	}
 			
