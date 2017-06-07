@@ -42,8 +42,7 @@ class FaceBookDataCrawler{
     .then(function(fbRes) {
       this.fbRes = JSON.parse(fbRes).data
 	  var i;
-	  console.log
-	  //console.log(this.fbRes);
+
 	 for (i=0;i<this.fbRes.length;i++)
 	 {
 		 
