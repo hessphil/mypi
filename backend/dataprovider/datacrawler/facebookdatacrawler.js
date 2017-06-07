@@ -46,7 +46,7 @@ class FaceBookDataCrawler{
 	 for (i=0;i<this.fbRes.length;i++)
 	 {
 		 
-		 if (fbRes[i].category=='Musician')
+		 if (fbRes[i].category=='Musician/Band')
 		 {
 		 //console.log(this.fbRes[i].name);
 		 interestProfile.addInterpret(this.fbRes[i].name);
