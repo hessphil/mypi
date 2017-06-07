@@ -16,31 +16,6 @@ class Song extends Playable {
 		this.source = source
 		this.imageUrl = imageUrl
 	}
-	
-	play()
-	{
-		super.play()
-	}
-	
-	stop()
-	{
-		super.stop()
-	}
-	
-	pause()
-	{
-		super.pause()
-	}
-	
-	resume()
-	{
-		super.resume()
-	}
-	
-	getView()
-	{
-		super.getView()
-	}
 }
 
 module.exports = Song;
