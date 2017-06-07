@@ -4,9 +4,8 @@ const request = require('request-promise');
 
 class FaceBookDataCrawler{
 	constructor(facebookdatacrawler) {
-		this.facebookdatacrawler = facebookdatacrawler
-
-		this.fbRes = null
+		this.facebookdatacrawler = facebookdatacrawler;
+		this.fbRes = null;
 	}
 	
 	//Variables
@@ -22,16 +21,15 @@ class FaceBookDataCrawler{
 	
 
 	//Create Interest Profile
-	fillInterestProfile()
+	fillInterestProfile(interestProfile)
 	{
 		
-	interestProfile = new InterestProfile();
 	// you need permission for most of these fields
-	const userFieldSet = 'name';
+	const userFieldSet = 'name,category';
 	
 	const options = {
     method: 'GET',
-    uri: `https://graph.facebook.com/v2.8/me/likes?fields=id,name,category,category_list`,
+    uri: `https://graph.facebook.com/v2.8/me/likes`,
     qs: {
       access_token: this.token,
       fields: userFieldSet
@@ -40,26 +38,34 @@ class FaceBookDataCrawler{
 	
 	request(options)
     .then(function(fbRes) {
+
       this.fbRes = JSON.parse(fbRes).data
+
 	  var i;
 
 	 for (i=0;i<this.fbRes.length;i++)
 	 {
+		 // console.log(this.fbRes[i].name);
+		 //console.log(this.fbRes[i].category);
+		 // console.log(this.fbRes[i].category_list);
 		 
-		 if (fbRes[i].category=='Musician/Band')
+		 		
+		 //get interprets
+		 if (this.fbRes[i].category==='Musician/Band')
 		 {
 		 //console.log(this.fbRes[i].name);
 		 interestProfile.addInterpret(this.fbRes[i].name);
 		 }
+		 
 	 }
-	 
+
 	 return interestProfile;
+
     }.bind(this));
 	
 
 	//get keywords
-		
-	//get interprets
+
 		
 	//get news provider
 	}

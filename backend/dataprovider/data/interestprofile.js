@@ -13,6 +13,7 @@ class InterestProfile
 		}
 		addInterpret(interpret)
 		{
+			console.log(interpret);
 			this.interpretsArray.push(interpret);
 		}
 			addnewsProvider(newsProvider)

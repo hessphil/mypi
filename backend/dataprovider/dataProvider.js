@@ -28,10 +28,10 @@ class DataProvider {
 		//datacrawler for facebook
 		this.fbDataCrawler = new FaceBookDataCrawler();
 		
+		this.interestProfile = new InterestProfile();
+		
 		this.fbDataCrawler.Connect(fbToken);
-		this.interestProfile = this.fbDataCrawler.fillInterestProfile(this.interestProfile);
-		console.log(this.interestProfile.interpretsArray[0]);
-		console.log(this.interestProfile.interpretsArray[1]);
+		this.interestProfile=this.fbDataCrawler.fillInterestProfile(this.interestProfile);
 		}
 		
 
