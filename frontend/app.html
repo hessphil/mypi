@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<title>MyPI - Listen what really matters</title>
+
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="../mediaplayer/mediaplayer.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			var mediaplayer = new Mediaplayer('1');
+			
+			mediaplayer.addPlayable(new News("Hallo, I bims 1 News."));
+
+			onVolume = function(volume) {
+				var vol = Math.floor(volume);
+				// save the volume in the cookie
+				var date = new Date();
+				date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+				soundVolume = vol;
+				document.cookie = ['scPlayer_volume=', vol, '; expires=', date.toUTCString(), '; path="/"'].join('');
+				// update the volume in the engine
+				<!-- mediaplayer.soundCloudAudioDriver.setVolume(soundVolume); -->
+			}
+			
+			$(document).bind('scPlayer:onAudioReady', function(event) {
+				console.log('onPlayerReady: audio engine is ready');
+				mediaplayer.soundCloudAudioDriver.play();
+				// set initial volume
+				onVolume(soundVolume);
+			}.bind(mediaplayer));
+				
+			$(document).bind('scPlayer:onMediaPlay', function(event) {
+				console.log('Test');
+				console.log(event);
+				console.log(mediaplayer);
+			}.bind(mediaplayer));
+				
+
+			// when the loaded track is was paused
+			$(document).bind('scPlayer:onMediaPause', function(event) {
+				clearInterval(mediaplayer.positionPoll);
+				mediaplayer.positionPoll = null;
+			});
+			// change the volume
+			$(document).bind('scPlayer:onVolumeChange', function(event) {
+				onVolume(event.volume);
+			});
+			$(document).bind('scPlayer:onMediaEnd', function(event) {
+				onFinish();
+			});
+			$(document).bind('scPlayer:onMediaBuffering', function(event) {
+			});
+			
+			$("#playMediaplayer").click(function(event) {
+				mediaplayer.play();
+				<!-- var track = { -->
+					<!-- uri: "https://soundcloud.com/nct-1/nct-you-preview-out-soon-for" -->
+				<!-- } -->
+				<!-- mediaplayer.soundCloudAudioDriver.load(track,'htuiRd1JP11Ww0X72T1C3g',null); -->
+			});
+			$("#stopMediaplayer").click(function(event) {
+				mediaplayer.pause();
+			});
+			
+			$("#skipMediaplayer").click(function(event) {
+				mediaplayer.skip();
+			});
+		});
+	</script>
+
+	
+	
+</head>
+<body>
+<div class="container">
+    <div class="mypiPlayerControl">
+        <button type="button" id="playMediaplayer">Play</button>
+        <button type="button" id="stopMediaplayer">Stop</button>
+        <button type="button" id="skipMediaplayer">Skip</button>
+    </div>
+</body>
+</html>
