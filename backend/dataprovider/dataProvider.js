@@ -31,7 +31,10 @@ class DataProvider {
 		this.interestProfile = new InterestProfile();
 		
 		this.fbDataCrawler.Connect(fbToken);
-		this.interestProfile=this.fbDataCrawler.fillInterestProfile(this.interestProfile);
+		this.fbDataCrawler.fillInterestProfile(this.interestProfile,function (value){
+			this.interestProfile=value;
+			console.log(this.interestProfile);
+			}.bind(this));
 		}
 		
 

@@ -4,6 +4,7 @@ class InterestProfile
 		this.keywordArray=[];
 		this.interpretsArray=[];
 		this.newsProviderArray=[];
+		this.musicGenreArray=[];
 		}
 		
 		
@@ -13,13 +14,17 @@ class InterestProfile
 		}
 		addInterpret(interpret)
 		{
-			console.log(interpret);
 			this.interpretsArray.push(interpret);
 		}
-			addnewsProvider(newsProvider)
+		addnewsProvider(newsProvider)
 		{
 			this.newsProviderArray.push(newsProvider);
 		}
+		addmusicGenre(musicGenre)
+		{
+			this.musicGenreArray.push(musicGenre);
+		}
+		
 }
 
 module.exports = InterestProfile;

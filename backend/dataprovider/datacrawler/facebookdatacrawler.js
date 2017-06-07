@@ -21,7 +21,7 @@ class FaceBookDataCrawler{
 	
 
 	//Create Interest Profile
-	fillInterestProfile(interestProfile)
+	fillInterestProfile(interestProfile,callbackfunction)
 	{
 		
 	// you need permission for most of these fields
@@ -45,29 +45,36 @@ class FaceBookDataCrawler{
 
 	 for (i=0;i<this.fbRes.length;i++)
 	 {
-		 // console.log(this.fbRes[i].name);
-		 //console.log(this.fbRes[i].category);
-		 // console.log(this.fbRes[i].category_list);
-		 
 		 		
 		 //get interprets
 		 if (this.fbRes[i].category==='Musician/Band')
 		 {
-		 //console.log(this.fbRes[i].name);
-		 interestProfile.addInterpret(this.fbRes[i].name);
+			//console.log(this.fbRes[i].name);
+			interestProfile.addInterpret(this.fbRes[i].name);
+		 }		 		
+		 //get news provider
+		 else if (this.fbRes[i].category==='News & Media Website'||this.fbRes[i].category==='Advertising/Marketing')
+		 {
+			interestProfile.addnewsProvider(this.fbRes[i].name);
+		 }
+		 else if (this.fbRes[i].category==='Musician')
+		 {
+			interestProfile.addmusicGenre(this.fbRes[i].name);
+		 }		 		
+		 else
+		 {
+			 interestProfile.addKeyWord(this.fbRes[i].name);
 		 }
 		 
 	 }
-
-	 return interestProfile;
+	 callbackfunction(interestProfile);
 
     }.bind(this));
 	
 
 	//get keywords
 
-		
-	//get news provider
+
 	}
 	
 	
@@ -86,7 +93,7 @@ class FaceBookDataCrawler{
 		//check for new messages
 		//convert to playables
 		//return playables
-		return this.token;
+		return this.interestProfile;
 	}
 }
 

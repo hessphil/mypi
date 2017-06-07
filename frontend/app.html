@@ -13,6 +13,8 @@
 			var mediaplayer = new Mediaplayer('1');
 			
 			mediaplayer.addPlayable(new News("Hallo, I bims 1 News."));
+			mediaplayer.addPlayable(new News("Hallo, I bims 2 News."));
+			mediaplayer.addPlayable(new News("Hallo, I bims 3 News."));
 
 			onVolume = function(volume) {
 				var vol = Math.floor(volume);
@@ -62,11 +64,24 @@
 				<!-- mediaplayer.soundCloudAudioDriver.load(track,'htuiRd1JP11Ww0X72T1C3g',null); -->
 			});
 			$("#stopMediaplayer").click(function(event) {
-				mediaplayer.pause();
+				mediaplayer.stop();
 			});
 			
 			$("#skipMediaplayer").click(function(event) {
 				mediaplayer.skip();
+			});
+			
+			$("#pauseMediaplayer").click(function(event) {
+				if ($("#pauseMediaplayer").text()=="Pause")
+				{
+					mediaplayer.pause();
+					$("#pauseMediaplayer").text('Resume')
+				} 
+				else if ($("#pauseMediaplayer").text()=="Resume")
+				{
+					mediaplayer.resume();
+					$("#pauseMediaplayer").text('Pause')
+				}
 			});
 		});
 	</script>
@@ -79,6 +94,7 @@
     <div class="mypiPlayerControl">
         <button type="button" id="playMediaplayer">Play</button>
         <button type="button" id="stopMediaplayer">Stop</button>
+        <button type="button" id="pauseMediaplayer">Pause</button>
         <button type="button" id="skipMediaplayer">Skip</button>
 		<button type="button" onclick="getPlayablesFromServer();">FickDichWeg</button>
     </div>
