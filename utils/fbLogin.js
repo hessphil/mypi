@@ -84,6 +84,6 @@ var accesstoken;
 		}
 		};
 		//Redirect 
-		//window.location = "http://localhost/mediaplayer";
+		window.location = "http://localhost/mypi/frontend/app.html";
     });
   }
