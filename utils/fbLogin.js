@@ -84,6 +84,6 @@ var accesstoken;
 		}
 		};
 		//Redirect 
-		//window.location = "http://www.oth-aw.de";
+		//window.location = "http://localhost/mediaplayer";
     });
   }
