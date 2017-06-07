@@ -16,7 +16,8 @@ function getPlayablesFromServer()
 	// Query data until we get a valid response
 	var x = document.cookie
 	var url = "http://localhost:8080/getPlayable/" + x.split("=")[1];
-	console.log(httpGet(url));
+	var jsonNewsTest = JSON.parse(httpGet(url));
+	console.log(jsonNewsTest);
 	
 }
 

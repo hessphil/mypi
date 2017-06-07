@@ -3,6 +3,7 @@ var app = express();
 var fs = require("fs");
 var apitoken = require('rand-token');
 var DataProvider = require('./dataprovider/dataProvider.js');
+const News = require('./dataprovider/data/news.js');
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
@@ -23,8 +24,10 @@ app.use(function(req, res, next) {
 app.get('/getPlayable/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
-				console.log(dpMap[token[i]].transmitPlayables());
-				res.end(dpMap[token[i]].transmitPlayables());
+				//console.log(dpMap[token[i]].transmitPlayables());
+				//res.end(dpMap[token[i]].transmitPlayables());
+				console.log(createDummyPlayables ());
+				res.end(JSON.stringify(createDummyPlayables ()));
 			}
        }
        res.end("Invalid API Key" );
@@ -61,3 +64,13 @@ var server = app.listen(8080, function () {
   console.log("MyPi Server listening at http://%s:%s", host, port)
 
 })
+
+function createDummyPlayables () {
+	var news = new News();
+	news.text = "Na du wie geht es dir heute"
+	news.title = "Fake News"
+	news.provider = "Malle News"
+	news.source = "boa ne iwas"
+	news.imageUrl = "pfad zum bild"
+	return news;
+}
