@@ -48,34 +48,28 @@ class NewsDataCrawler{
 				var curProvider=this.newsMap[this.relevantProvider[provIndex]];	
 				
 				//get latest news
-				this.getTheLatest(curProvider,provIndex);
+				https.get(curProvider, (res) => {
+				  res.on('data', (d) => {
+					this.resp = d;
+					console.log('data:', d);
+					var temp = JSON.parse(this.resp);
+					//filter news by keyword
+					var filteredNews=this.FilterNewsByKeyWords(temp);
+					
+					
+					//add to playables list
+					var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
+					this.newsList=this.newsList.concat(newNews);
+				  });
+				});
+				
+				
+				// this.getTheLatest(curProvider,provIndex).then(() => {return this.newsList});
 			}
 		}
 		//if selected provider ==0 go through all providers
 		//check if keyword is in article description
-		
-		
 	}
-	//GetNews
-	getTheLatest(url,provIndex) {
-		https.get(url, (res) => {
-		  res.on('data', (d) => {
-			this.resp = d;
-			console.log('data:', d);
-			var temp = JSON.parse(this.resp);
-			//filter news by keyword
-			var filteredNews=this.FilterNewsByKeyWords(temp);
-			
-			
-			//add to playables list
-			var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
-			this.newsList=this.newsList.concat(newNews);
-		  });
-
-		}).on('error', (e) => {
-		  console.error(e);
-		});
-	  }
 	
 	//gets all news for keyword
 	FilterNewsByKeyWords(jsonList)
