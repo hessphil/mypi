@@ -63,7 +63,16 @@ var server = app.listen(8080, function () {
 
   console.log("MyPi Server listening at http://%s:%s", host, port)
 
+  setInterval(updateDataProviders, 10000);
 })
+
+function updateDataProviders()
+{
+	for (i=0;i<dpMap.length;i++)
+	 {
+		dpMap[i].run();
+	 }
+}
 
 function createDummyPlayables () {
 	var news = new News();
