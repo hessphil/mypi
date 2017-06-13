@@ -18,6 +18,6 @@ function getPlayablesFromServer()
 	var url = "http://localhost:8080/getPlayable/" + x.split("=")[1];
 	var jsonNewsTest = JSON.parse(httpGet(url));
 	console.log(jsonNewsTest);
-	
+	return jsonNewsTest;
 }
 

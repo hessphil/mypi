@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="960px" height="560px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+<text transform="matrix(1 0 0 1 434.2617 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">in</text>
+<text transform="matrix(1 0 0 1 453.7046 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">f</text>
+<text transform="matrix(1 0 0 1 461.6953 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">otainment system</text>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="256" y="156.383" width="419" height="173.617"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<g clip-path="url(#SVGID_2_)">
+		<text transform="matrix(1 0 0 1 256.001 263.0098)" fill="#009EE2" font-family="'TamilSangamMN-Bold'" font-size="142.1667">MyPi</text>
+	</g>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="667.446" y1="199.313" x2="568.591" y2="199.313"/>
+<g>
+	<defs>
+		<rect id="SVGID_3_" x="256" y="156.383" width="419" height="173.617"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_4_)" fill="#009EE2" d="M659.893,199.313c0,4.24,3.382,7.676,7.555,7.676
+		c4.171,0,7.553-3.436,7.553-7.676c0-4.24-3.382-7.676-7.553-7.676C663.274,191.638,659.893,195.074,659.893,199.313"/>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="667.446" y1="254.897" x2="568.591" y2="254.897"/>
+<g>
+	<defs>
+		<rect id="SVGID_5_" x="256" y="156.383" width="419" height="173.617"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_6_)" fill="#009EE2" d="M659.893,254.897c0,4.24,3.382,7.676,7.555,7.676
+		c4.171,0,7.553-3.436,7.553-7.676c0-4.24-3.382-7.676-7.553-7.676C663.274,247.221,659.893,250.657,659.893,254.897"/>
+	
+		<line clip-path="url(#SVGID_6_)" fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="576.146" y1="227.105" x2="675.001" y2="227.105"/>
+	<path clip-path="url(#SVGID_6_)" fill="#009EE2" d="M583.699,227.105c0-4.24-3.382-7.676-7.554-7.676
+		c-4.171,0-7.554,3.436-7.554,7.676c0,4.238,3.383,7.676,7.554,7.676C580.317,234.781,583.699,231.343,583.699,227.105"/>
+</g>
+</svg>
