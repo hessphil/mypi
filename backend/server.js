@@ -21,7 +21,19 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/getPlayable/:apitoken', function (req, res) {
+app.get('/getNews/:apitoken', function (req, res) {
+       for(var i=0;i< token.length;i++) {
+       		if(token[i]==req.params.apitoken){
+				//console.log(dpMap[token[i]].transmitPlayables());
+				//res.end(dpMap[token[i]].transmitPlayables());
+				console.log(createDummyPlayables ());
+				res.end(JSON.stringify(createDummyPlayables ()));
+			}
+       }
+       res.end("Invalid API Key" );
+})
+
+app.get('/getSongs/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
 				//console.log(dpMap[token[i]].transmitPlayables());
