@@ -97,17 +97,19 @@
 	</div>		
     <div class=" playerFront center-block ">
 		<div class="button_container">
-			<button type="button" onclick="getPlayablesFromServer()">Test</button>
-			<button type="button" id="playMediaplayer">Play</button>
-			<button type="button" id="stopMediaplayer">Stop</button>
-			<button type="button" id="pauseMediaplayer">Pause</button>
-			<button type="button" id="skipMediaplayer">Skip</button>
+			<img src="../pics/zurueck.svg" id="stopMediaplayer" class="player_button" ></img>
+			<img src="../pics/play.svg" id="playMediaplayer" class="player_button_play"></img>
+			<img src="../pics/vor.svg" id="skipMediaplayer" class="player_button"></img
 		</div>
 	</div>
 </div>
 	
-	<div class="playable_container center-block">
-	Hier kommen dann die Playables 
+	<div class="playable_container center-block"  id="playCon">
+		
 	</div>
+	<button type="button" onclick="queryAndInsert()">Test</button>
+	<button type="button" id="stopMediaplayer">Stop</button>
+	<button type="button" onclick="addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot')">Insert</button>
+	<button type="button" onclick="removePlayableDiv()">Remove</button>
 </body>
 </html>

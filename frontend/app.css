@@ -1,12 +1,12 @@
 .center-block{
-	min-width:300px;
+	min-width:500px;
 	max-width:500px;
 	
 }
 .playerFront{
-	min-width:300px;
+	min-width:500px;
 	max-width:500px;
-	height:30px;
+	height:68px;
 	background-color:#009EE2;
 }
 .img-responsive {
@@ -15,8 +15,55 @@
 
 .button_container{
 	width: 50%;
-	margin: 0 auto;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;	
 }
 .playable_container{
 	background-color: grey;
+	overflow: auto;
+	max-height: 400px;
+}
+.equal{
+	background-color: lightgrey;
+}
+
+.preview-img{
+	height: 70px;
+	width: 70px;
+	margin: 15px;
+	border-radius: 5px;
+}
+
+.preview-src-spiegel{
+	width: 20%;
+	height: 20%;
+	margin: 15px;
+}
+
+.details{
+	display:inline;
+}
+
+.player_button_play{
+	width: 27%;
+	background-color: #009EE2;
+	padding:10px;
+	display: inline-block;
+	border-radius:10px;
+}
+.player_button_play:hover{
+	width: 27%;
+	background-color: #88dcff;
+	padding:10px;
+}
+.player_button{
+	width: 20%;
+	background-color: #009EE2;
+	padding:10px;
+	display: inline-block;
+	border-radius:10px;
+}
+.player_button:hover{
+	background-color: #88dcff;
 }
