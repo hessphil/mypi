@@ -80,7 +80,7 @@ var server = app.listen(8080, function () {
 
 function updateDataProviders()
 {
-	for (i=0;i<dpMap.length;i++)
+	for (var i=0;i<dpMap.length;i++)
 	 {
 		dpMap[i].run();
 	 }
