@@ -42,9 +42,9 @@ function addPlayableDiv(img_url,content)
 	var img_src = document.createElement('img');
 	var strong = document.createElement('strong');
 	
-	if(content.length> 35)
+	if(content.length> 32)
 	{
-		content = content.substring(0,35);
+		content = content.substring(0,32);
 	}
 	
 	img.src=img_url;
