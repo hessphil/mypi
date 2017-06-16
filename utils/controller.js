@@ -1,4 +1,3 @@
-
 // Synchronous http request
 function httpGet(theUrl)
 {
@@ -12,7 +11,6 @@ function httpGet(theUrl)
 function getPlayablesFromServer()
 {
 	// Read the API token from Cookie
-	
 	// Query data until we get a valid response
 	var x = document.cookie
 	var url = "http://localhost:8080/getNews/" + x.split("=")[1];

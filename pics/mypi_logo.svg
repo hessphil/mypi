@@ -1,46 +1,203 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="960px" height="560px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
-<text transform="matrix(1 0 0 1 434.2617 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">in</text>
-<text transform="matrix(1 0 0 1 453.7046 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">f</text>
-<text transform="matrix(1 0 0 1 461.6953 294.7021)" fill="#FFFFFF" font-family="'TamilSangamMN-Bold'" font-size="28.1372">otainment system</text>
-<g>
-	<defs>
-		<rect id="SVGID_1_" x="256" y="156.383" width="419" height="173.617"/>
-	</defs>
-	<clipPath id="SVGID_2_">
-		<use xlink:href="#SVGID_1_"  overflow="visible"/>
-	</clipPath>
-	<g clip-path="url(#SVGID_2_)">
-		<text transform="matrix(1 0 0 1 256.001 263.0098)" fill="#009EE2" font-family="'TamilSangamMN-Bold'" font-size="142.1667">MyPi</text>
-	</g>
-</g>
-<line fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="667.446" y1="199.313" x2="568.591" y2="199.313"/>
-<g>
-	<defs>
-		<rect id="SVGID_3_" x="256" y="156.383" width="419" height="173.617"/>
-	</defs>
-	<clipPath id="SVGID_4_">
-		<use xlink:href="#SVGID_3_"  overflow="visible"/>
-	</clipPath>
-	<path clip-path="url(#SVGID_4_)" fill="#009EE2" d="M659.893,199.313c0,4.24,3.382,7.676,7.555,7.676
-		c4.171,0,7.553-3.436,7.553-7.676c0-4.24-3.382-7.676-7.553-7.676C663.274,191.638,659.893,195.074,659.893,199.313"/>
-</g>
-<line fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="667.446" y1="254.897" x2="568.591" y2="254.897"/>
-<g>
-	<defs>
-		<rect id="SVGID_5_" x="256" y="156.383" width="419" height="173.617"/>
-	</defs>
-	<clipPath id="SVGID_6_">
-		<use xlink:href="#SVGID_5_"  overflow="visible"/>
-	</clipPath>
-	<path clip-path="url(#SVGID_6_)" fill="#009EE2" d="M659.893,254.897c0,4.24,3.382,7.676,7.555,7.676
-		c4.171,0,7.553-3.436,7.553-7.676c0-4.24-3.382-7.676-7.553-7.676C663.274,247.221,659.893,250.657,659.893,254.897"/>
-	
-		<line clip-path="url(#SVGID_6_)" fill="none" stroke="#FFFFFF" stroke-width="1.558" x1="576.146" y1="227.105" x2="675.001" y2="227.105"/>
-	<path clip-path="url(#SVGID_6_)" fill="#009EE2" d="M583.699,227.105c0-4.24-3.382-7.676-7.554-7.676
-		c-4.171,0-7.554,3.436-7.554,7.676c0,4.238,3.383,7.676,7.554,7.676C580.317,234.781,583.699,231.343,583.699,227.105"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="134mm"
+   height="67mm"
+   viewBox="0 0 474.80313 237.40159"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="mypi_logo.svg"
+   inkscape:export-filename="C:\xampp\htdocs\mypi\pics\mypi_logo_1.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="214.05256"
+     inkscape:cy="-87.373865"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-814.96061)">
+    <text
+       style="font-size:28.1371994px;font-family:TamilSangamMN-Bold;fill:#ffffff"
+       font-size="28.1372"
+       id="text4137"
+       x="193.47127"
+       y="1047.6921">in</text>
+    <text
+       style="font-size:28.1371994px;font-family:TamilSangamMN-Bold;fill:#ffffff"
+       font-size="28.1372"
+       id="text4139"
+       x="212.91417"
+       y="1047.6921">f</text>
+    <text
+       style="font-size:28.1371994px;font-family:TamilSangamMN-Bold;fill:#ffffff"
+       font-size="28.1372"
+       id="text4141"
+       x="220.90488"
+       y="1047.6921">otainment system</text>
+    <g
+       id="g4143"
+       transform="translate(-240.79043,752.99005)">
+      <defs
+         id="defs4145">
+        <rect
+           id="SVGID_1_"
+           x="256"
+           y="156.383"
+           width="419"
+           height="173.617" />
+      </defs>
+      <clipPath
+         id="SVGID_2_">
+        <use
+           height="100%"
+           width="100%"
+           y="0"
+           x="0"
+           style="overflow:visible"
+           xlink:href="#SVGID_1_"
+           overflow="visible"
+           id="use4149" />
+      </clipPath>
+      <g
+         clip-path="url(#SVGID_2_)"
+         id="g4151">
+        <text
+           style="font-size:142.16670227px;font-family:TamilSangamMN-Bold;fill:#009ee2"
+           transform="translate(256.001,263.0098)"
+           font-size="142.1667"
+           id="text4153">MyPi</text>
+      </g>
+    </g>
+    <line
+       style="fill:none;stroke:#ffffff;stroke-width:1.55799997"
+       x1="462.65555"
+       y1="952.30304"
+       x2="363.80057"
+       y2="952.30304"
+       id="line4155" />
+    <g
+       id="g4157"
+       transform="translate(-204.79043,752.99005)">
+      <defs
+         id="defs4159">
+        <rect
+           id="SVGID_3_"
+           x="256"
+           y="156.383"
+           width="419"
+           height="173.617" />
+      </defs>
+      <clipPath
+         id="SVGID_4_">
+        <use
+           height="100%"
+           width="100%"
+           y="0"
+           x="0"
+           style="overflow:visible"
+           xlink:href="#SVGID_3_"
+           overflow="visible"
+           id="use4163" />
+      </clipPath>
+      <path
+         style="fill:#009ee2"
+         inkscape:connector-curvature="0"
+         clip-path="url(#SVGID_4_)"
+         d="m 659.893,199.313 c 0,4.24 3.382,7.676 7.555,7.676 4.171,0 7.553,-3.436 7.553,-7.676 0,-4.24 -3.382,-7.676 -7.553,-7.676 -4.174,0.001 -7.555,3.437 -7.555,7.676"
+         id="path4165" />
+    </g>
+    <line
+       style="fill:none;stroke:#ffffff;stroke-width:1.55799997"
+       x1="462.65555"
+       y1="1007.887"
+       x2="363.80057"
+       y2="1007.887"
+       id="line4167" />
+    <g
+       id="g4169"
+       transform="translate(-204.79043,752.99005)">
+      <defs
+         id="defs4171">
+        <rect
+           id="SVGID_5_"
+           x="256"
+           y="156.383"
+           width="419"
+           height="173.617" />
+      </defs>
+      <clipPath
+         id="SVGID_6_">
+        <use
+           height="100%"
+           width="100%"
+           y="0"
+           x="0"
+           style="overflow:visible"
+           xlink:href="#SVGID_5_"
+           overflow="visible"
+           id="use4175" />
+      </clipPath>
+      <path
+         style="fill:#009ee2"
+         inkscape:connector-curvature="0"
+         clip-path="url(#SVGID_6_)"
+         d="m 659.893,254.897 c 0,4.24 3.382,7.676 7.555,7.676 4.171,0 7.553,-3.436 7.553,-7.676 0,-4.24 -3.382,-7.676 -7.553,-7.676 -4.174,0 -7.555,3.436 -7.555,7.676"
+         id="path4177" />
+      <line
+         style="fill:none;stroke:#ffffff;stroke-width:1.55799997"
+         clip-path="url(#SVGID_6_)"
+         x1="576.146"
+         y1="227.105"
+         x2="675.00098"
+         y2="227.105"
+         id="line4179" />
+      <path
+         style="fill:#009ee2"
+         inkscape:connector-curvature="0"
+         clip-path="url(#SVGID_6_)"
+         d="m 583.699,227.105 c 0,-4.24 -3.382,-7.676 -7.554,-7.676 -4.171,0 -7.554,3.436 -7.554,7.676 0,4.238 3.383,7.676 7.554,7.676 4.172,0 7.554,-3.438 7.554,-7.676"
+         id="path4181" />
+    </g>
+  </g>
 </svg>

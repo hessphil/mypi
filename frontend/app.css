@@ -1,0 +1,22 @@
+.center-block{
+	min-width:300px;
+	max-width:500px;
+	
+}
+.playerFront{
+	min-width:300px;
+	max-width:500px;
+	height:30px;
+	background-color:#009EE2;
+}
+.img-responsive {
+	padding:20px;
+}
+
+.button_container{
+	width: 50%;
+	margin: 0 auto;
+}
+.playable_container{
+	background-color: grey;
+}
