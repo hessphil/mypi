@@ -24,12 +24,10 @@ app.use(function(req, res, next) {
 app.get('/getNews/:apitoken', function (req, res) {
        for(var i=0;i< token.length;i++) {
        		if(token[i]==req.params.apitoken){
-				//console.log(dpMap[token[i]].transmitPlayables());
-				//res.end(dpMap[token[i]].transmitPlayables());
-				console.log(createDummyPlayables ());
-				res.end(JSON.stringify(createDummyPlayables ()));
+				res.end(JSON.stringify(dpMap[token[i]].transmitNewsPlayables()));
 			}
        }
+	   
        res.end("Invalid API Key" );
 })
 
@@ -75,14 +73,17 @@ var server = app.listen(8080, function () {
 
   console.log("MyPi Server listening at http://%s:%s", host, port)
 
-  setInterval(updateDataProviders, 10000);
+  setInterval(updateDataProviders, 5000);
 })
 
 function updateDataProviders()
 {
-	for (var i=0;i<dpMap.length;i++)
+	//console.log('server::updateDataProviders');
+	
+	for (var dp in dpMap)
 	 {
-		dpMap[i].run();
+		 //console.log('server::d'+dpMap[dp]);
+		dpMap[dp].run();
 	 }
 }
 

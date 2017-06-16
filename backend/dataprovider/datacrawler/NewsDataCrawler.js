@@ -2,7 +2,7 @@
 'use strict';
 const News = require('../data/news.js');
 var https = require('https');
-
+const request = require('request-promise');  
 
 class NewsDataCrawler{
 	//Variables
@@ -19,49 +19,58 @@ class NewsDataCrawler{
 		"tagesspiegel":"https://newsapi.org/v1/articles?source=der-tagesspiegel&sortBy=latest&apiKey=298ff739e4364254a522a26fc88466da",
 		"zeit":"https://newsapi.org/v1/articles?source=die-zeit&sortBy=latest&apiKey=298ff739e4364254a522a26fc88466da"};
 	
-		this.newsList=[]
+		this.newsList=[];
+		this.newsPlayableArrayHistory = [];
 	}
 
 	//SetRelevantProvider
-	setRelevantProvider(providerName)
+	setRelevantProviders(providerNames)
 	{
-		this.relevantProvider.push(providerName);
+		
+		this.relevantProvider=this.relevantProvider.concat(providerNames);
 	}
 	
-	addKeyWord(keyWord)
+	addKeyWords(keyWords)
 	{
-		this.keyWords.push(keyWord);
+		this.keyWords=this.keyWords.concat(keyWords);
 	}
+	
 	
 	//get news from each relevant provider
-	getPlayables ()
+	getPlayables (callbackfunction)
 	{
 		if (this.relevantProvider.length > 0)
 		{
 			for (var provIndex=0; provIndex < this.relevantProvider.length; provIndex++)
 			{
-				console.log(this.relevantProvider[provIndex]);
-				console.log(this.newsMap[this.relevantProvider[provIndex]])
+				//console.log(this.relevantProvider[provIndex]);
+				//console.log(this.newsMap[this.relevantProvider[provIndex]])
 				
 				
 				//get current provider url
 				var curProvider=this.newsMap[this.relevantProvider[provIndex]];	
 				
 				//get latest news
-				https.get(curProvider, (res) => {
-				  res.on('data', (d) => {
-					this.resp = d;
-					console.log('data:', d);
-					var temp = JSON.parse(this.resp);
-					//filter news by keyword
-					var filteredNews=this.FilterNewsByKeyWords(temp);
+				const options = {
+					method: 'GET',
+					uri: curProvider,
+					};
 					
-					
-					//add to playables list
-					var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
-					this.newsList=this.newsList.concat(newNews);
-				  });
-				});
+					request(options)
+					.then(function(d) {
+						this.resp = d;
+						//console.log('data:', d);
+						var temp = JSON.parse(this.resp);
+						//filter news by keyword
+						var filteredNews=this.FilterNewsByKeyWords(temp);
+							
+						//add to playables list
+						var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
+						//this.newsList=this.newsList.concat(newNews);
+						//console.log(this.newsList);
+						callbackfunction(newNews);
+						
+					}.bind(this));
 				
 				
 				// this.getTheLatest(curProvider,provIndex).then(() => {return this.newsList});
@@ -80,15 +89,23 @@ class NewsDataCrawler{
 		var arrayLength =jsonList['articles'].length;
 		for (var i = 0; i < arrayLength; i++)
 		{
+			//console.log(this.keyWords);
 			//go through all keywords
 			for (var keyWordIndex = 0; keyWordIndex < this.keyWords.length; keyWordIndex++)
 			{
 				//check if keyword is in description
-				if(jsonList['articles'][i].description.includes(this.keyWords[keyWordIndex]))
+				if((jsonList['articles'][i].description.includes(this.keyWords[keyWordIndex]))||jsonList['articles'][i].title.includes(this.keyWords[keyWordIndex]))
 				{
 					//todo: mark keyword as found
-					console.log(jsonList['articles'][i])
+					//console.log(jsonList['articles'][i])
+					//console.log("newsdatacrawler: newsPlayableArrayHistory:"+this.newsPlayableArrayHistory);
+					if(this.newsPlayableArrayHistory.indexOf(jsonList['articles'][i].url) > -1)
+					{
+						//console.log("newsdatacrawler: newsPlayableArrayHistory continue:");
+						continue;
+					}
 					filteredList.push(jsonList['articles'][i]);
+					this.newsPlayableArrayHistory.push(jsonList['articles'][i].url);
 					break;
 				}
 			}
@@ -101,8 +118,8 @@ class NewsDataCrawler{
 	{
 		var newsPlayAbles = [];
 		
-		console.log("filteredNews: " + filteredNews)
-		console.log("filteredNews length: " + filteredNews.length)
+		//console.log("filteredNews: " + filteredNews)
+		//console.log("filteredNews length: " + filteredNews.length)
 		for (var newsIndex=0; newsIndex < filteredNews.length; newsIndex++)
 			{
 				var curNews = new News();
