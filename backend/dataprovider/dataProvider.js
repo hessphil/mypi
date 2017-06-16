@@ -40,6 +40,7 @@ class DataProvider {
 		this.fbDataCrawler.fillInterestProfile(this.interestProfile,function (value){
 			this.interestProfile=value;
 			this.newsDataCrawler.addKeyWords(this.interestProfile.keywordArray);
+			this.newsDataCrawler.setRelevantProviders(this.interestProfile.newsProviderArray);
 			}.bind(this));
 		}
 		

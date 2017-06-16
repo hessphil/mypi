@@ -26,8 +26,31 @@ class NewsDataCrawler{
 	//SetRelevantProvider
 	setRelevantProviders(providerNames)
 	{
-		
-		this.relevantProvider=this.relevantProvider.concat(providerNames);
+		//wrap provider fb names to newsapi names
+		for (var provIndex=0; provIndex < providerNames.length; provIndex++)
+		{
+			
+			if(providerNames[provIndex]=="SPIEGEL ONLINE")
+			{
+				this.relevantProvider=this.relevantProvider.concat("spiegel");
+			}
+			else if(providerNames[provIndex]=="ZEIT ONLINE")
+			{
+				this.relevantProvider=this.relevantProvider.concat("zeit");
+			}
+			else if(providerNames[provIndex]=="Bild")
+			{
+				this.relevantProvider=this.relevantProvider.concat("bild");
+			}
+			else if(providerNames[provIndex]=="FOCUS Online")
+			{
+				this.relevantProvider=this.relevantProvider.concat("focus");
+			}
+			else if(providerNames[provIndex]=="Tagesspiegel")
+			{
+				this.relevantProvider=this.relevantProvider.concat("tagesspiegel");
+			}
+		}
 	}
 	
 	addKeyWords(keyWords)
