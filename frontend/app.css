@@ -61,10 +61,14 @@
 }
 
 .details{
-	display:inline;
+	display:inline-block;
+	word-wrap: break-word;
+	max-width: 250px;
+	vertical-align: middle;
 }
 
-.player_button_play{
+
+.player_button_pause, .player_button_play{
 	width: 27%;
 	background-color: #009EE2;
 	padding:10px;
@@ -72,6 +76,11 @@
 	border-radius:10px;
 }
 .player_button_play:hover{
+	width: 27%;
+	background-color: #88dcff;
+	padding:10px;
+}
+.player_button_pause:hover{
 	width: 27%;
 	background-color: #88dcff;
 	padding:10px;

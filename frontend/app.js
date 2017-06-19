@@ -19,6 +19,7 @@ class Controller {
 	move_up() {
 		document.getElementById('playCon').scrollTop -= 100;
 	}
+	
 	getPlayablesFromServer() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
@@ -50,10 +51,6 @@ class Controller {
 		var img_src = document.createElement('img');
 		var strong = document.createElement('strong');
 		
-		if(content.length> 32)
-		{
-			content = content.substring(0,32);
-		}
 		
 		img.src=img_url;
 		img.className="preview-img";

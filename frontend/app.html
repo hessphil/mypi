@@ -43,7 +43,7 @@
 			});
 			
 			$("#insert").click(function(event) {
-				controller.addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot')
+				controller.addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot','spiegel-online')
 			});
 			
             $("#remove").click(function(event) {
@@ -52,6 +52,21 @@
 			$("#moveUp").click(function(event) {
 				controller.move_down()
 			});
+			
+			/*
+			function toggle(el){
+				if(el.className!="player_button_pause"){
+					el.src='../pics/pause.svg';
+					el.className="player_button_pause";
+					el.attr("id","pauseMediaplayer");
+				}
+				else if(el.className=="player_button_play"){
+					el.src='../pics/play.svg';
+					el.className="player_button_play";
+					el.attr("id","playMediaplayer");
+				}
+			}
+			*/
 		});
 	</script>
 
@@ -65,7 +80,7 @@
 	<div class="button_container">
 		<img src="../pics/zurueck.svg" id="stopMediaplayer" class="player_button" ></img>
 		<img src="../pics/play.svg" id="playMediaplayer" class="player_button_play"></img>
-		<img src="../pics/vor.svg" id="skipMediaplayer" class="player_button"></img
+		<img src="../pics/vor.svg" id="skipMediaplayer" class="player_button"></img>
 	</div>
 </div>
 
