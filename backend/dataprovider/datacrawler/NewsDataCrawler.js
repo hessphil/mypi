@@ -88,7 +88,7 @@ class NewsDataCrawler{
 						var filteredNews=this.FilterNewsByKeyWords(temp);
 							
 						//add to playables list
-						var newNews=this.ConvertToNews(filteredNews, curProvider);
+						var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
 						//this.newsList=this.newsList.concat(newNews);
 						//console.log(this.newsList);
 						callbackfunction(newNews);
