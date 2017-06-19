@@ -187,8 +187,8 @@ class Mediaplayer{
 		this.positionPoll=null;
 		this.currentPlayable=null;
 		this.controller=controller;
-		console.log(this.controller)
-		this.getPlayables()
+		console.log(this.controller);
+		this.getPlayables();
 	}
 
 	play() {
@@ -240,7 +240,6 @@ class Mediaplayer{
 	
 	skip() {
 		var nextPlayable=this.playables.shift();
-		
 		if (nextPlayable instanceof News)
 		{
 			var parameters = {
@@ -251,7 +250,6 @@ class Mediaplayer{
 			this.currentPlayable=nextPlayable;
 		}
 	}
-	
 	
 	getPlayables() {
 		var playables=this.controller.queryAndInsert();

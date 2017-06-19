@@ -14,6 +14,7 @@
 			var controller = new Controller();
 			var mediaplayer = new Mediaplayer('1','API',controller);
 		
+		
 			$("#playMediaplayer").click(function(event) {
 				mediaplayer.play();
 			});
@@ -39,14 +40,14 @@
 			});
 			
 			$("#test").click(function(event) {
-				controller.queryAndInsert();
+				mediaplayer.getPlayables()
 			});
 			
 			$("#insert").click(function(event) {
 				controller.addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot')
 			});
 			
-			$("#test").click(function(event) {
+            $("#remove").click(function(event) {
 				controller.removePlayableDiv()
 			});
 		});
