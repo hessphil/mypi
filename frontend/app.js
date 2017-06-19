@@ -1,6 +1,7 @@
 class Controller { 
 	constructor() {
 		this.counter=0;
+		this.scrollPos=0;
 	}
 	
 	httpGet(theUrl) {
@@ -10,7 +11,14 @@ class Controller {
 		xmlHttp.send( null );
 		return xmlHttp.responseText;
 	}
-	
+	move_down() {
+		document.getElementById('playCon').scrollTop = (this.scrollPos+100);
+		this.scrollPos = document.getElementById('playCon').scrollTop;
+	}
+
+	move_up() {
+		document.getElementById('playCon').scrollTop -= 100;
+	}
 	getPlayablesFromServer() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
@@ -35,7 +43,7 @@ class Controller {
 			}
 		}
 		
-	addPlayableDiv(img_url,content) {
+	addPlayableDiv(img_url,content,NewsProvider) {
 		var div = document.createElement('div');
 		var img = document.createElement('img');
 		var div_detail = document.createElement('div');
@@ -55,8 +63,22 @@ class Controller {
 		strong.innerHTML=content;
 		div_detail.appendChild(strong);
 		
-		img_src.src="../pics/spiegel.svg";
-		img_src.className="pull-right preview-src-spiegel";
+		if(NewsProvider === 'spiegel-online'){
+			img_src.src="../pics/spiegel.svg";
+			img_src.className="pull-right preview-src-spiegel";
+		}
+		else if(NewsProvider === 'focus'){
+			img_src.src="../pics/focus.svg";
+			img_src.className="pull-right preview-src-focus";
+		}
+		else if (NewsProvider === 'die-zeit'){
+			img_src.src="../pics/Zeit.svg";
+			img_src.className="pull-right preview-src-zeit";
+		}
+		else if (NewsProvider === 'deezer'){
+			img_src.src="../pics/deezer.svg";
+			img_src.className="pull-right preview-src-deezer";
+		}
 		
 		if(this.counter%2==0)
 		{
@@ -88,7 +110,7 @@ class Controller {
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.addPlayableDiv(playables[pl].imageUrl,playables[pl].title);
+			this.addPlayableDiv(playables[pl].imageUrl,playables[pl].title, playables[pl].provider);
 		}
 		return playables;
 	}
@@ -240,12 +262,12 @@ class Mediaplayer{
 	
 	skip() {
 		var nextPlayable=this.playables.shift();
+		this.controller.move_down();
 		if (nextPlayable instanceof News)
 		{
 			var parameters = {
 				onend: this.skip.bind(this)
 			}
-			
 			responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
 			this.currentPlayable=nextPlayable;
 		}

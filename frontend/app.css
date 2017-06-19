@@ -20,8 +20,8 @@
 	text-align:center;	
 }
 .playable_container{
-	background-color: grey;
-	overflow: auto;
+	background-color: #C0C0C0;
+	overflow-y: scroll;
 	max-height: 400px;
 }
 .equal{
@@ -36,8 +36,27 @@
 }
 
 .preview-src-spiegel{
+	width: 17%;
+	height: 17%;
+	margin: 15px;
+}
+.playable{
+	height: 100px;
+}
+.preview-src-focus{
 	width: 20%;
 	height: 20%;
+	margin: 15px;
+}
+.preview-src-zeit{
+	width: 17%;
+	height: 17%;
+	margin: 15px;
+}
+
+.preview-src-deezer{
+	width: 20%; 	
+	height: 60%;
 	margin: 15px;
 }
 
