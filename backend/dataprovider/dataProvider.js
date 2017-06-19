@@ -55,7 +55,7 @@ class DataProvider {
 		{
 			numbersToRemove=5;
 		}
-		var subNewsArray=this.newsPlayableArray.splice(0, 1);
+		var subNewsArray=this.newsPlayableArray.splice(0,numbersToRemove );
 		//console.log('transmitNewsPlayables:subNewsArray:'+subNewsArray);
 		return subNewsArray;
 		//remove playables from buffer
