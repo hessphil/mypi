@@ -3,7 +3,7 @@
 const Playable = require('./playable.js');
 
 class Song extends Playable {
-	constructor(title,genre,interpret,source,imageUrl) {
+	constructor(title,genre,interpret,source,imageUrl,songUrl,duration) {
 		if (this.constructor === Song) {
 			throw new Error("Can't instantiate abstract class!");
 		}
@@ -15,6 +15,8 @@ class Song extends Playable {
 		this.interpret = interpret
 		this.source = source
 		this.imageUrl = imageUrl
+		this.songUrl = songUrl
+		this.duration = duration
 	}
 }
 
