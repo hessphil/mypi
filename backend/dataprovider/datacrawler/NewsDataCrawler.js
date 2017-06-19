@@ -21,6 +21,7 @@ class NewsDataCrawler{
 	
 		this.newsList=[];
 		this.newsPlayableArrayHistory = [];
+		this.lastProvider;
 	}
 
 	//SetRelevantProvider
@@ -72,6 +73,7 @@ class NewsDataCrawler{
 				
 				//get current provider url
 				var curProvider=this.newsMap[this.relevantProvider[provIndex]];	
+				this.lastProvider=this.relevantProvider[provIndex];
 				
 				//get latest news
 				const options = {
@@ -84,11 +86,12 @@ class NewsDataCrawler{
 						this.resp = d;
 						//console.log('data:', d);
 						var temp = JSON.parse(this.resp);
+						var provider = temp.source;
 						//filter news by keyword
 						var filteredNews=this.FilterNewsByKeyWords(temp);
 							
 						//add to playables list
-						var newNews=this.ConvertToNews(filteredNews, this.relevantProvider[provIndex]);
+						var newNews=this.ConvertToNews(filteredNews, provider);
 						//this.newsList=this.newsList.concat(newNews);
 						//console.log(this.newsList);
 						callbackfunction(newNews);
