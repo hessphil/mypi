@@ -18,8 +18,8 @@ class Controller {
 
 	move_up() {
 		document.getElementById('playCon').scrollTop -= 100;
-	}
-	
+    }
+
 	getPlayablesFromServer() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
@@ -208,8 +208,21 @@ class Mediaplayer{
 		this.controller=controller;
 		console.log(this.controller);
 		this.getPlayables();
+		DZ.init({
+			appId  : this.apikey,
+			channelUrl : 'http://localhost/mypi/frontend/channel.html',
+			player : {
+				onload : this.onPlayerLoaded
+			}
+		});
 	}
-
+	
+	onPlayerLoaded() {
+		console.log("Player loaded")
+		DZ.player.playAlbum(302127);
+		DZ.player.pause();
+	}
+	
 	play() {
 		console.log(this.id + ' plays.');
 
