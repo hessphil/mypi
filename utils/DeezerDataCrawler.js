@@ -24,9 +24,9 @@ class DeezerDataCrawler{
 	GetSongs()
 	{
 		var numbersToRemove=this.songList.length;
-		if (numbersToRemove>5)
+		if (numbersToRemove>3)
 		{
-			numbersToRemove=5;
+			numbersToRemove=3;
 		}
 		var subSongsArray=this.songList.splice(0,numbersToRemove);
 		//console.log('transmitNewsPlayables:subNewsArray:'+subNewsArray);
@@ -92,4 +92,4 @@ class DeezerDataCrawler{
 	
 }
 
-module.exports = FaceBookDataCrawler;
+module.exports = DeezerDataCrawler;
