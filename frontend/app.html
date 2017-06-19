@@ -5,64 +5,17 @@
 
 	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script type="text/javascript" src="../mediaplayer/mediaplayer.js"></script>
-	<script type="text/javascript" src="../utils/controller.js"></script>
+	<script type="text/javascript" src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+	<script type="text/javascript" src="app.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="./app.css">
 	<script>
 		$(document).ready(function(){
-			var mediaplayer = new Mediaplayer('1');
-			
-			mediaplayer.addPlayable(new News("Hallo, I bims 1 News."));
-			mediaplayer.addPlayable(new News("Hallo, I bims 2 News."));
-			mediaplayer.addPlayable(new News("Hallo, I bims 3 News."));
-
-			onVolume = function(volume) {
-				var vol = Math.floor(volume);
-				// save the volume in the cookie
-				var date = new Date();
-				date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-				soundVolume = vol;
-				document.cookie = ['scPlayer_volume=', vol, '; expires=', date.toUTCString(), '; path="/"'].join('');
-				// update the volume in the engine
-				<!-- mediaplayer.soundCloudAudioDriver.setVolume(soundVolume); -->
-			}
-			
-			$(document).bind('scPlayer:onAudioReady', function(event) {
-				console.log('onPlayerReady: audio engine is ready');
-				mediaplayer.soundCloudAudioDriver.play();
-				// set initial volume
-				onVolume(soundVolume);
-			}.bind(mediaplayer));
-				
-			$(document).bind('scPlayer:onMediaPlay', function(event) {
-				console.log('Test');
-				console.log(event);
-				console.log(mediaplayer);
-			}.bind(mediaplayer));
-				
-
-			// when the loaded track is was paused
-			$(document).bind('scPlayer:onMediaPause', function(event) {
-				clearInterval(mediaplayer.positionPoll);
-				mediaplayer.positionPoll = null;
-			});
-			// change the volume
-			$(document).bind('scPlayer:onVolumeChange', function(event) {
-				onVolume(event.volume);
-			});
-			$(document).bind('scPlayer:onMediaEnd', function(event) {
-				onFinish();
-			});
-			$(document).bind('scPlayer:onMediaBuffering', function(event) {
-			});
-			
+			var controller = new Controller();
+			var mediaplayer = new Mediaplayer('1','API',controller);
+		
 			$("#playMediaplayer").click(function(event) {
 				mediaplayer.play();
-				<!-- var track = { -->
-					<!-- uri: "https://soundcloud.com/nct-1/nct-you-preview-out-soon-for" -->
-				<!-- } -->
-				<!-- mediaplayer.soundCloudAudioDriver.load(track,'htuiRd1JP11Ww0X72T1C3g',null); -->
 			});
 			$("#stopMediaplayer").click(function(event) {
 				mediaplayer.stop();
@@ -84,11 +37,21 @@
 					$("#pauseMediaplayer").text('Pause')
 				}
 			});
+			
+			$("#test").click(function(event) {
+				controller.queryAndInsert();
+			});
+			
+			$("#insert").click(function(event) {
+				controller.addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot')
+			});
+			
+			$("#test").click(function(event) {
+				controller.removePlayableDiv()
+			});
 		});
 	</script>
 
-	
-	
 </head>
 <body  style="background-color:#1a1a1a">
 <div class="row">
@@ -107,9 +70,9 @@
 	<div class="playable_container center-block"  id="playCon">
 		
 	</div>
-	<button type="button" onclick="queryAndInsert()">Test</button>
+	<button type="button" id="test">Test</button>
 	<button type="button" id="stopMediaplayer">Stop</button>
-	<button type="button" onclick="addPlayableDiv('http://cdn2.spiegel.de/images/image-1154991-galleryV9-lrev-1154991.jpg','Helmut ist tot')">Insert</button>
-	<button type="button" onclick="removePlayableDiv()">Remove</button>
+	<button type="button" id="insert">Insert</button>
+	<button type="button" id="remove">Remove</button>
 </body>
 </html>
