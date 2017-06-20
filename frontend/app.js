@@ -192,7 +192,7 @@ class Controller {
 						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration);
 						
 						console.log(curSong.title);
-						this.addPlayableDiv(curSong.imageUrl,curSong.title,"deezer");
+						this.addPlayableDiv(curSong.imageUrl,curSong.interpret+" - "+curSong.title,"deezer");
 						
 						//add song to list
 						this.songList.push(curSong);
