@@ -30,7 +30,6 @@ class Controller {
 		var x = document.cookie.substring(0,25)
 		console.log(x)
 		var url = "http://localhost:8080/getNews/" + x.split("=")[1];
-		console.log(this.httpGet(url))
 		var jsonNewsTest = JSON.parse(this.httpGet(url));
 		console.log(jsonNewsTest);
 		return jsonNewsTest;
