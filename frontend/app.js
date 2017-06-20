@@ -3,6 +3,8 @@ class Controller {
 		this.counter=0;
 		this.scrollPos=0;
 		this.deezer_logged_in=0;
+		this.playlist_id=0;
+		this.songList=[];
 	}
 	
 	httpGet(theUrl) {
@@ -21,13 +23,16 @@ class Controller {
 		document.getElementById('playCon').scrollTop -= 100;
     }
 
+	
 	getPlayablesFromServer() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
-		var x = document.cookie
+		var x = document.cookie.substring(0,25)
+		console.log(x)
 		var url = "http://localhost:8080/getNews/" + x.split("=")[1];
+		console.log(this.httpGet(url))
 		var jsonNewsTest = JSON.parse(this.httpGet(url));
-		//console.log(jsonNewsTest);
+		console.log(jsonNewsTest);
 		return jsonNewsTest;
 	}
 	
@@ -136,17 +141,68 @@ class Controller {
 	}
 	
 	
-	deezerLogin(){
+	deezerLogin(callback){
 		DZ.login(function(response) {
 			if (response.authResponse) {
 				DZ.api('/user/me', function(response) {
 					console.log('Good to see you, ' + response.name + '.');
 				});
 				this.deezer_logged_in=1
+				
+				this.getSongs(callback);
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
 			}
 		}.bind(this), {perms: 'basic_access,email'});
+	}
+	
+	
+	
+	getSongs(callback){
+		if (this.deezer_logged_in==1)
+		{
+			DZ.api('user/me/playlists', 'GET', function(response){
+				var leisurePlaylist = null;
+					
+				console.log(response.data)
+				
+				
+				for (var i=0;i<response.data.length;i++)
+				{
+					if(response.data[i].title=="Leisure")
+					{
+						leisurePlaylist=response.data[i];
+						break
+					}
+				}
+				
+				console.log("My new playlist ID", leisurePlaylist.id);
+				
+				this.playlist_id=leisurePlaylist.id
+				
+				
+				DZ.api('playlist/' + this.playlist_id, 'GET', function(response){
+					
+					console.log(response.tracks.data)
+					for (var i=0;i<response.tracks.data.length;i++)
+					{
+						var deezerTrack = response.tracks.data[i]
+						console.log(deezerTrack)
+						//fill news with data
+						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration);
+						
+						console.log(curSong.title);
+						this.addPlayableDiv(curSong.imageUrl,curSong.title,"");
+						
+						//add song to list
+						this.songList.push(curSong);
+					}
+					
+					callback();
+				}.bind(this));
+			}.bind(this));
+		}
+	
 	}
 }
 
@@ -162,54 +218,8 @@ var Playable = function(data) {
 	this.data=data;
 	this.view=null;
 };
-
-/**
- @abstract
- */
 Playable.prototype.data = "";
 
-/**
- @abstract
- */
-Playable.prototype.getData = function() {
-    return this.data;
-}
-
-
-/**
- @abstract
- */
-Playable.prototype.play = function() {
-    return null;
-}
-
-/**
- @abstract
- */
-Playable.prototype.stop = function() {
-    return null;
-}
-
-/**
- @abstract
- */
-Playable.prototype.pause = function() {
-    return null;
-}
-
-/**
- @abstract
- */
-Playable.prototype.resume = function() {
-    return null;
-}
-
-/**
- @abstract
- */
-Playable.prototype.getView = function() {
-    return this.view? this.view:'';
-}
 
 
 var News = function(text) {
@@ -218,21 +228,28 @@ var News = function(text) {
 News.prototype = Object.create(Playable.prototype);
 News.prototype.constructor = News;
 News.prototype.data="";
-News.prototype.play = function() {
-	return null;
-}
-News.prototype.stop = function() {
-	return null;
-}
-News.prototype.pause = function() {
-	return null;
-}
-News.prototype.resume = function() {
-	return null;
-}
-News.prototype.getView = function() {
-	return null;
-}
+
+
+var Song = function(id,title,interpret,album,imageUrl,songUrl,duration) {
+    Playable.apply(this, [title]);
+	this.id=id;
+	this.title=title;
+	this.interpret=interpret;
+	this.album=album;
+	this.imageUrl=imageUrl;
+	this.songUrl=songUrl;
+	this.duration=duration;
+};
+Song.prototype = Object.create(Playable.prototype);
+Song.prototype.constructor = Song;
+Song.prototype.data="";
+Song.prototype.id="";
+Song.prototype.title="";
+Song.prototype.interpret="";
+Song.prototype.album="";
+Song.prototype.imageUrl="";
+Song.prototype.songUrl="";
+Song.prototype.duration="";
 
 class Mediaplayer{ 
 	constructor(id,apikey,controller) {
@@ -261,7 +278,6 @@ class Mediaplayer{
 	onPlayerLoaded() {
 		console.log("Player loaded")
 		this.updateState('stopped');
-		// DZ.player.playAlbum(302127);
 		DZ.player.pause();
 	}
 	
@@ -273,7 +289,16 @@ class Mediaplayer{
 	play() {
 		if(this.controller.deezer_logged_in==0)
 		{
-			this.controller.deezerLogin();
+			this.controller.deezerLogin(function(){
+				console.log("deezerLogin callback")
+				console.log(this.controller.songList)
+				var playables=this.controller.songList;
+				for (var i=0;i<playables.length;i++)
+				{
+					console.log("Add " + playables[i].title)
+					this.addPlayable(playables[i])					
+				}
+			}.bind(this));
 		}
 
 		if(this.currentPlayable==null)
@@ -293,6 +318,14 @@ class Mediaplayer{
 					responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
 					this.currentPlayable=nextPlayable;
 				}
+				else if(nextPlayable instanceof Song)
+				{
+					console.log("Play deezer song " + nextPlayable.id);
+					DZ.player.playTracks([nextPlayable.id]);
+					DZ.player.play();
+					this.updateState('playing');
+					this.currentPlayable=nextPlayable;
+				}
 			}
 		}
 	}
@@ -303,6 +336,11 @@ class Mediaplayer{
 			this.updateState('paused');
 			responsiveVoice.pause();
 		}
+		else if(nextPlayable instanceof Song)
+		{
+			DZ.player.pause();
+			
+		}
 	}	
 	  
 	resume() {
@@ -310,6 +348,11 @@ class Mediaplayer{
 		{
 			this.updateState('playing');
 			responsiveVoice.resume();
+		}
+		else if(nextPlayable instanceof Song)
+		{
+			DZ.player.pause();
+			
 		}
 	}
 	  
@@ -334,6 +377,11 @@ class Mediaplayer{
 			responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
 			this.currentPlayable=nextPlayable;
 		}
+		else if(nextPlayable instanceof Song)
+		{
+			DZ.player.playTracks([nextPlayable.id]);
+			DZ.player.play();
+		}
 	}
 	
 	getPlayables() {
@@ -351,7 +399,7 @@ class Mediaplayer{
 		{
 			this.playables.push(playable);
 			console.log(this.playables.length);
-		} 
+		}
 		else
 		{
 			console.log('Cannot add non Playable object');
