@@ -383,6 +383,8 @@ class Mediaplayer{
 		this.controller.move_down();
 		if (nextPlayable instanceof News)
 		{
+			DZ.player.pause();
+			
 			var parameters = {
 				onend: this.skip.bind(this)
 			}
