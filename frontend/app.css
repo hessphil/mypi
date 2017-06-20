@@ -68,6 +68,14 @@
 }
 
 
+.player_button_pause {
+	content:url('../pics/pause.svg');
+}
+
+.player_button_play {
+	content:url('../pics/play.svg');
+}
+
 .player_button_pause, .player_button_play{
 	width: 27%;
 	background-color: #009EE2;
@@ -85,6 +93,7 @@
 	background-color: #88dcff;
 	padding:10px;
 }
+
 .player_button{
 	width: 20%;
 	background-color: #009EE2;

@@ -111,6 +111,28 @@ class Controller {
 		}
 		return playables;
 	}
+	
+	updateState(oldState,newState){
+		var el = $(".player_play").first()
+		console.log("UpdateState")
+		
+		if(newState=='playing') 
+		{
+			el.src='../pics/pause.svg'
+			el.removeClass('player_button_play').addClass('player_button_pause');
+			console.log("playing now")
+		}
+		else if(newState=='paused' || newState=='stopped')
+		{
+			el.src='../pics/play.svg'
+			el.removeClass('player_button_pause').addClass('player_button_play');
+			console.log("pausing/stopping now")
+		}
+		else if(newState=='loading')
+		{
+			
+		}
+	}
 }
 
 
@@ -206,26 +228,33 @@ class Mediaplayer{
 		this.positionPoll=null;
 		this.currentPlayable=null;
 		this.controller=controller;
-		console.log(this.controller);
 		this.getPlayables();
+		
+		// states:
+		// loading, stopped, playing, paused
+		this.updateState('loading');
 		DZ.init({
 			appId  : this.apikey,
 			channelUrl : 'http://localhost/mypi/frontend/channel.html',
 			player : {
-				onload : this.onPlayerLoaded
+				onload : this.onPlayerLoaded.bind(this)
 			}
 		});
 	}
 	
 	onPlayerLoaded() {
 		console.log("Player loaded")
-		DZ.player.playAlbum(302127);
+		this.updateState('stopped');
+		// DZ.player.playAlbum(302127);
 		DZ.player.pause();
 	}
 	
+	updateState(state) {
+		this.controller.updateState(this.state,state);
+		this.state=state;
+	}
+	
 	play() {
-		console.log(this.id + ' plays.');
-
 		if(this.currentPlayable==null)
 		{
 			if(this.playables.length > 0)
@@ -238,18 +267,19 @@ class Mediaplayer{
 					var parameters = {
 						onend: this.skip.bind(this)
 					}
-					
+					this.updateState('playing');
+					console.log(this.id + ' plays.');
 					responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
 					this.currentPlayable=nextPlayable;
 				}
 			}
-		} 
+		}
 	}
 	  
 	pause() {
 		if (this.currentPlayable instanceof News)
 		{
-				
+			this.updateState('paused');
 			responsiveVoice.pause();
 		}
 	}	
@@ -257,6 +287,7 @@ class Mediaplayer{
 	resume() {
 		if (this.currentPlayable instanceof News)
 		{
+			this.updateState('playing');
 			responsiveVoice.resume();
 		}
 	}
@@ -264,6 +295,7 @@ class Mediaplayer{
 	stop() {
 		if (this.currentPlayable instanceof News)
 		{
+			this.updateState('stopped');
 			responsiveVoice.cancel();
 			
 		}
