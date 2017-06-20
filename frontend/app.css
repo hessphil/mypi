@@ -104,3 +104,6 @@
 .player_button:hover{
 	background-color: #88dcff;
 }
+#dz-root{
+	visibility:hidden;
+}
