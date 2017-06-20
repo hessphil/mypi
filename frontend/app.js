@@ -2,6 +2,7 @@ class Controller {
 	constructor() {
 		this.counter=0;
 		this.scrollPos=0;
+		this.deezer_logged_in=0;
 	}
 	
 	httpGet(theUrl) {
@@ -133,6 +134,20 @@ class Controller {
 			
 		}
 	}
+	
+	
+	deezerLogin(){
+		DZ.login(function(response) {
+			if (response.authResponse) {
+				DZ.api('/user/me', function(response) {
+					console.log('Good to see you, ' + response.name + '.');
+				});
+				this.deezer_logged_in=1
+			} else {
+				console.log('User cancelled login or did not fully authorize.');
+			}
+		}.bind(this), {perms: 'basic_access,email'});
+	}
 }
 
 
@@ -230,6 +245,7 @@ class Mediaplayer{
 		this.controller=controller;
 		this.getPlayables();
 		
+
 		// states:
 		// loading, stopped, playing, paused
 		this.updateState('loading');
@@ -255,6 +271,11 @@ class Mediaplayer{
 	}
 	
 	play() {
+		if(this.controller.deezer_logged_in==0)
+		{
+			this.controller.deezerLogin();
+		}
+
 		if(this.currentPlayable==null)
 		{
 			if(this.playables.length > 0)
