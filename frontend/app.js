@@ -331,39 +331,51 @@ class Mediaplayer{
 	}
 	  
 	pause() {
-		if (this.currentPlayable instanceof News)
+		if(this.currentPlayable instanceof Playable)
 		{
 			this.updateState('paused');
-			responsiveVoice.pause();
-		}
-		else if(nextPlayable instanceof Song)
-		{
-			DZ.player.pause();
-			
+			if (this.currentPlayable instanceof News)
+			{
+				responsiveVoice.pause();
+			}
+			else if(this.currentPlayable instanceof Song)
+			{
+				DZ.player.pause();
+			}
 		}
 	}	
 	  
 	resume() {
-		if (this.currentPlayable instanceof News)
+		if(this.currentPlayable instanceof Playable)
 		{
 			this.updateState('playing');
-			responsiveVoice.resume();
-		}
-		else if(nextPlayable instanceof Song)
-		{
-			DZ.player.pause();
 			
+			if (this.currentPlayable instanceof News)
+			{
+				responsiveVoice.resume();
+			}
+			else if(this.currentPlayable instanceof Song)
+			{
+				DZ.player.play();
+			}
 		}
 	}
 	  
 	stop() {
-		if (this.currentPlayable instanceof News)
+		if(this.currentPlayable instanceof Playable)
 		{
 			this.updateState('stopped');
-			responsiveVoice.cancel();
 			
+			if(this.currentPlayable instanceof News)
+			{
+				responsiveVoice.cancel();
+			}
+			else if(this.currentPlayable instanceof Song)
+			{
+				DZ.player.play();
+			}
+			this.currentPlayable=null;
 		}
-		this.currentPlayable=null;
 	}
 	
 	skip() {
