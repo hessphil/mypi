@@ -151,6 +151,7 @@ class Controller {
 				this.getSongs(callback);
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
+				this.deezer_logged_in=0
 			}
 		}.bind(this), {perms: 'basic_access,email'});
 	}
@@ -295,11 +296,12 @@ class Mediaplayer{
 				for (var i=0;i<playables.length;i++)
 				{
 					console.log("Add " + playables[i].title)
-					this.addPlayable(playables[i])					
+					this.addPlayable(playables[i])		
 				}
+				this.play();
 			}.bind(this));
 		}
-
+		
 		if(this.currentPlayable==null)
 		{
 			if(this.playables.length > 0)
