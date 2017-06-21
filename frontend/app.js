@@ -1,7 +1,7 @@
 class Controller { 
 	constructor() {
 		this.counter=0;
-		// this.scrollPos=0;
+		this.scrollPos=0;
 		this.deezer_logged_in=0;
 		this.playlist_id=0;
 		this.playableList=[];
@@ -23,11 +23,14 @@ class Controller {
 		return xmlHttp.responseText;
 	}
 	move_down() {
-		document.getElementById('playCon').scrollTop+=100
+		document.getElementById('playCon').scrollTop=this.scrollPos+100;
+		this.scrollPos=document.getElementById('playCon').scrollTop;
 	}
 
 	move_up() {
-		document.getElementById('playCon').scrollTop -= 100;
+
+		document.getElementById('playCon').scrollTop =this.scrollPos-100;
+		this.scrollPos=document.getElementById('playCon').scrollTop;
     }
 	
 
