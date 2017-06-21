@@ -150,7 +150,7 @@ class Controller {
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].source))
+			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].source,playables[pl].provider))
 		}
 		return playables;
 	}
@@ -327,12 +327,13 @@ Playable.prototype.data = "";
 
 
 
-var News = function(text,title,imageUrl,source) {
+var News = function(text,title,imageUrl,source,provider) {
     Playable.apply(this, [text]);
 	this.text=text;
 	this.imageUrl=imageUrl;
 	this.title=title;
 	this.source=source;
+	this.provider=provider;
 };
 News.prototype = Object.create(Playable.prototype);
 News.prototype.constructor = News;
