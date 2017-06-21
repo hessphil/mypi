@@ -151,18 +151,62 @@ class Controller {
 	
 	addToPlayList(playable){
 		//check priority and calculate position in queue (even at highest prio)
-		
 		//get the next five items
-		var forcastList=[]
-		for (var pl=0;pl<5 && (pl + this.playableIndex) < this.playableList.length;pl++)
-		{
-			forcastList.push(this.playableList)
-			
-		}
+		// var previousList=[]
+		// for (var pl=0;pl<5 && (this.playableIndex-pl) > 1;pl++)
+		// {
+			// previousList.push(this.playableList[pl])
+		// }
+		
+		// console.log(previousList)
+		
+		// var forcastList=[]
+		// for (var pl=0;pl<5 && (pl + this.playableIndex) < this.playableList.length;pl++)
+		// {
+			// forcastList.push(this.playableList[pl])
+		// }
+		
+		
+		// --> WTF simply do a shuffle of all upcoming now
+		this.playableList.push(playable)
+		this.playableList=this.shuffle(this.playableList,this.playableIndex)
+		// var forcastList=[]
+		// for (var pl=this.playableIndex+1; (pl + this.playableIndex) < this.playableList.length;pl++)
+		// {
+			// forcastList.push(this.playableList[pl])
+		// }
+		
+		// console.log(previousList)
+		// console.log(forcastList)
+		
+		
+		
+		// if (this.currentPlayable instanceof News)
+		// {
+			// this.playableList.arr.splice(this.playableIndex+1, 0, playable);
+		// }
+		// else if(this.currentPlayable instanceof Song)
+		// {
+			// this.playableList.arr.splice(this.playableIndex+2, 0, playable);
+		// }
+		
+		
+		
 		//if position is one ahead of current replace preview div 
 		
 	}
 	
+	
+	shuffle(a,limitIndex) {
+		var j, x, i;
+		for (i = a.length; i>limitIndex; i--) {
+			j = Math.floor(Math.random() * i);
+			x = a[i - 1];
+			a[i - 1] = a[j];
+			a[j] = x;
+		}
+		return a
+	}
 	
 	queryNewsAndInsert(){
 		var playables;
@@ -170,7 +214,7 @@ class Controller {
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].provider,playables[pl].source))
+			this.addToPlayList(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].provider,playables[pl].source))
 		}
 		return playables;
 	}
@@ -237,7 +281,7 @@ class Controller {
 						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration);
 						
 						//add song to list
-						this.playableList.push(curSong);
+						this.addToPlayList(curSong);
 					}
 					
 					callback();
@@ -318,7 +362,6 @@ class Controller {
 			var prevIndex=this.playableIndex;
 			this.playableIndex=this.playableIndex-1;
 			this.removePreviewDiv();
-			//moving up is obsolete if prevew div is removed
 			if(prevIndex!=1)
 			{				
 				this.move_up();
