@@ -23,6 +23,7 @@
 	background-color: #C0C0C0;
 	overflow-y: scroll;
 	max-height: 300px;
+	transition: all .5s linear;
 }
 .equal{
 	background-color: lightgrey;

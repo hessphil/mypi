@@ -31,6 +31,13 @@ class Controller {
 		this.scrollPos = document.getElementById('playCon').scrollTop;
     }
 
+	chg() {
+	  document.getElementById('playCon').style.height = "300px";
+	}
+	
+	chg2() {
+	  document.getElementById('playCon').style.height = "0px";
+	}
 	
 	getNewsFromServer() {
 		// Read the API token from Cookie

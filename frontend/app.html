@@ -63,6 +63,12 @@
 			$("#moveDown").click(function(event) {
 				controller.move_down();
 			});
+			$("#extend").click(function(event) {
+				controller.chg();
+			});
+			$("#minimize").click(function(event) {
+				controller.chg2();
+			});
 		});
 	</script>
 
@@ -93,5 +99,7 @@
 	<button type="button" id="insert">Insert</button>
 	<button type="button" id="remove">Remove</button>
 	<button type="button" id="moveDown">Move Down</button>
+	<button type="button" id="extend">Extend</button>
+	<button type="button" id="minimize">Minimize</button>
 </body>
 </html>
