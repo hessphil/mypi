@@ -150,7 +150,7 @@ class Controller {
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].source,playables[pl].provider))
+			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].provider,playables[pl].source))
 		}
 		return playables;
 	}
@@ -327,13 +327,13 @@ Playable.prototype.data = "";
 
 
 
-var News = function(text,title,imageUrl,source,provider) {
+var News = function(text,title,imageUrl,provider,source) {
     Playable.apply(this, [text]);
 	this.text=text;
 	this.imageUrl=imageUrl;
 	this.title=title;
-	this.source=source;
 	this.provider=provider;
+	this.source=source;
 };
 News.prototype = Object.create(Playable.prototype);
 News.prototype.constructor = News;
@@ -391,6 +391,11 @@ class Mediaplayer{
 				onload : this.onPlayerLoaded.bind(this)
 			}
 		});
+		
+		DZ.Event.subscribe('track_end', function(track_end){
+			console.log("Track ended");
+			this.skip.bind(this);
+		}.bind(this));
 		
 	}
 	
@@ -515,27 +520,5 @@ class Mediaplayer{
 			this.play();
 		}
 	}
-	
-	// getPlayables() {
-		// var playables=this.controller.queryAndInsert();
-		// console.log(playables)
-		// for (var pl=0;pl<playables.length;pl++)
-		// {
-			// this.addPlayable(new News(playables[pl].title + "." + playables[pl].text));
-		// }
-	// }
-	
-	
-	// addPlayable(playable) {
-		// if(playable instanceof Playable)
-		// {
-			// this.playables.push(playable);
-			// console.log(this.playables.length);
-		// }
-		// else
-		// {
-			// console.log('Cannot add non Playable object');
-		// }
-	// }
 }
 
