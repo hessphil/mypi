@@ -29,8 +29,8 @@ class Controller {
 
 	move_up() {
 
-		document.getElementById('playCon').scrollTop =this.scrollPos-100;
-		this.scrollPos=document.getElementById('playCon').scrollTop;
+		document.getElementById('playCon').scrollTop =this.scrollPos;
+
     }
 	
 
@@ -319,10 +319,10 @@ class Controller {
 			this.playableIndex=this.playableIndex-1;
 			this.removePreviewDiv();
 			//moving up is obsolete if prevew div is removed
-			// if(prevIndex!=1)
-			// {				
-				// this.move_up();
-			// }
+			if(prevIndex!=1)
+			{				
+				this.move_up();
+			}
 			return this.getCurrentPlayable(true);
 		}
 		
