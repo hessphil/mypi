@@ -13,7 +13,6 @@
 			var controller = new Controller();
 			var mediaplayer = new Mediaplayer('1','238322',controller);
 		
-		
 			$(".player_play").click(function(event) {
 				console.log("State: " + mediaplayer.state);
 				if(mediaplayer.state=='playing')
@@ -27,12 +26,21 @@
 						console.log("Play!")
 						mediaplayer.play();
 					}
-					else
+					else if(mediaplayer.state=='paused')
 					{
 						mediaplayer.resume();
 					}
+					else
+					{
+						console.log("State: loading...");
+					
+					}
 				}
 			});
+			$("#prevMediaplayer").click(function(event) {
+				mediaplayer.prev();
+			});
+			
 			$("#stopMediaplayer").click(function(event) {
 				mediaplayer.stop();
 			});
@@ -41,21 +49,8 @@
 				mediaplayer.skip();
 			});
 			
-			$("#pauseMediaplayer").click(function(event) {
-				if ($("#pauseMediaplayer").text()=="Pause")
-				{
-					mediaplayer.pause();
-					$("#pauseMediaplayer").text('Resume')
-				} 
-				else if ($("#pauseMediaplayer").text()=="Resume")
-				{
-					mediaplayer.resume();
-					$("#pauseMediaplayer").text('Pause')
-				}
-			});
-			
 			$("#test").click(function(event) {
-				mediaplayer.getPlayables()
+				controller.queryNewsAndInsert();
 			});
 			
 			$("#insert").click(function(event) {
@@ -63,10 +58,10 @@
 			});
 			
             $("#remove").click(function(event) {
-				controller.removePlayableDiv()
+				controller.removePlayableDiv();
 			});
-			$("#moveUp").click(function(event) {
-				controller.move_down()
+			$("#moveDown").click(function(event) {
+				controller.move_down();
 			});
 		});
 	</script>
@@ -80,7 +75,7 @@
 	<div class=" playerFront center-block ">
 		<div class="button_container">
 			<div id="controlers">
-				<img src="../pics/zurueck.svg" id="stopMediaplayer" class="player_button" ></img>
+				<img src="../pics/zurueck.svg" id="prevMediaplayer" class="player_button" ></img>
 				<img id="playMediaplayer" class="player_play player_button_pause"></img>
 				<img src="../pics/vor.svg" id="skipMediaplayer" class="player_button"></img>
 			</div>
@@ -93,10 +88,10 @@
 	</div>
 	
 	
-	<button type="button" id="test">Test</button>
+	<button type="button" id="test">News</button>
 	<button type="button" id="stopMediaplayer">Stop</button>
 	<button type="button" id="insert">Insert</button>
 	<button type="button" id="remove">Remove</button>
-	<button type="button" id="moveUp">Move Down</button>
+	<button type="button" id="moveDown">Move Down</button>
 </body>
 </html>

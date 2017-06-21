@@ -4,7 +4,14 @@ class Controller {
 		this.scrollPos=0;
 		this.deezer_logged_in=0;
 		this.playlist_id=0;
-		this.songList=[];
+		this.playableList=[];
+		
+		this.playableIndex=1;
+		
+		this.playableList.push(new News("Schön dich wiederzusehen Max!"))
+		this.addPlayableDiv("../pics/mypi_logo_square.png","Schoen dich wiederzusehen Max!", "");
+		
+		this.queryNewsAndInsert();
 	}
 	
 	httpGet(theUrl) {
@@ -21,10 +28,11 @@ class Controller {
 
 	move_up() {
 		document.getElementById('playCon').scrollTop -= 100;
+		this.scrollPos = document.getElementById('playCon').scrollTop;
     }
 
 	
-	getPlayablesFromServer() {
+	getNewsFromServer() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
 		var x = document.cookie.substring(0,25)
@@ -56,8 +64,8 @@ class Controller {
 		var img_src = document.createElement('img');
 		var strong = document.createElement('strong');
 		
-		
-		img.src=img_url;
+
+		img.src=img_url;	
 		img.className="preview-img";
 		
 		div_detail.className="details";
@@ -105,14 +113,17 @@ class Controller {
 		parent.removeChild(parent.childNodes[0]);
 		this.counter--;
 	}
-
-	queryAndInsert(){
+	
+	queryNewsAndInsert(){
 		var playables;
-		playables=this.getPlayablesFromServer();
+		playables=this.getNewsFromServer();
+		console.log("Found " + playables.length + " news")
+		
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
 			this.addPlayableDiv(playables[pl].imageUrl,playables[pl].title, playables[pl].provider);
+			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text))
 		}
 		return playables;
 	}
@@ -195,15 +206,80 @@ class Controller {
 						this.addPlayableDiv(curSong.imageUrl,curSong.interpret+" - "+curSong.title,"deezer");
 						
 						//add song to list
-						this.songList.push(curSong);
+						this.playableList.push(curSong);
 					}
 					
 					callback();
 				}.bind(this));
 			}.bind(this));
 		}
-	
 	}
+	
+	
+	getCurrentPlayable()
+	{
+		console.log("Now " + this.playableIndex)
+		console.log("Now " + this.scrollPos)
+		return this.playableList[this.playableIndex];
+	}
+	
+	
+	getNextPlayable()
+	{
+		if(this.playableList.length > this.playableIndex+1)
+		{
+			if(this.playableIndex!=this.playableList.length)
+			{
+				this.move_down();
+			}
+			this.playableIndex=this.playableIndex+1
+			return this.getCurrentPlayable();
+		}
+		//disable_next_button();
+		return null;
+	}
+	
+	
+	getPreviousPlayable()
+	{
+		if(this.playableIndex-1 >= 1)
+		{
+			if(this.playableIndex!=1)
+			{				
+				this.move_up();
+			}
+			this.playableIndex=this.playableIndex-1;
+			return this.getCurrentPlayable();
+		}
+		
+		//disable_prev_button();
+		return null;
+	}
+	
+	checkNextPlayable()
+	{
+		var nextIndex=this.playableIndex + 1
+		if(this.playableList.length > nextIndex)
+		{
+			this.move_down();
+			return this.playableList[nextIndex];
+		}
+		return null;
+	}
+	
+	checkPrevPlayable()
+	{
+		var prevIndex=this.playableIndex-1
+		if(prevIndex >= 0)
+		{
+			this.move_up();
+			return this.playableList[prevIndex - 1];
+		}
+		
+		//disable_prev_button();
+		return null;
+	}
+	
 }
 
 
@@ -260,11 +336,16 @@ class Mediaplayer{
 		this.positionPoll=null;
 		this.currentPlayable=null;
 		this.controller=controller;
-		this.getPlayables();
+		//this.getPlayables();
+		
+		$("#prevMediaplayer").prop("disabled", true);
+		$("#nextMediaplayer").prop("disabled", true);
 		
 
 		// states:
 		// loading, stopped, playing, paused
+		$("#playMediaplayer").prop("disabled", true);
+		
 		this.updateState('loading');
 		DZ.init({
 			appId  : this.apikey,
@@ -276,9 +357,9 @@ class Mediaplayer{
 	}
 	
 	onPlayerLoaded() {
-		console.log("Player loaded")
+		console.log("Player loaded");
+		$("#playMediaplayer").prop("disabled", false);
 		this.updateState('stopped');
-		DZ.player.pause();
 	}
 	
 	updateState(state) {
@@ -291,43 +372,42 @@ class Mediaplayer{
 		{
 			this.controller.deezerLogin(function(){
 				console.log("deezerLogin callback")
-				console.log(this.controller.songList)
-				var playables=this.controller.songList;
-				for (var i=0;i<playables.length;i++)
-				{
-					console.log("Add " + playables[i].title)
-					this.addPlayable(playables[i])		
-				}
+				// console.log(this.controller.songList)
+				// var playables=this.controller.songList;
+				// for (var i=0;i<playables.length;i++)
+				// {
+					// console.log("Add " + playables[i].title)
+					// this.addPlayable(playables[i])		
+				// }
+				$("#prevMediaplayer").prop("disabled", false);
+				$("#nextMediaplayer").prop("disabled", false);
 				this.play();
 			}.bind(this));
-		}
+			return
+		} 
 		
 		if(this.currentPlayable==null)
 		{
-			if(this.playables.length > 0)
-			{
-				// save it first temporarily becuase maybe we have to 
-				var nextPlayable=this.playables.shift();
-				
-				if (nextPlayable instanceof News)
-				{
-					var parameters = {
-						onend: this.skip.bind(this)
-					}
-					this.updateState('playing');
-					console.log(this.id + ' plays.');
-					responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
-					this.currentPlayable=nextPlayable;
-				}
-				else if(nextPlayable instanceof Song)
-				{
-					console.log("Play deezer song " + nextPlayable.id);
-					DZ.player.playTracks([nextPlayable.id]);
-					DZ.player.play();
-					this.updateState('playing');
-					this.currentPlayable=nextPlayable;
-				}
+			this.currentPlayable=this.controller.getCurrentPlayable();
+		} else {
+			this.stop(true);
+		}
+		
+		if (this.currentPlayable instanceof News)
+		{
+			var parameters = {
+				onend: this.skip.bind(this)
 			}
+			this.updateState('playing');
+			console.log(this.id + ' plays.');
+			responsiveVoice.speak(this.currentPlayable.data,"Deutsch Female",parameters);
+		}
+		else if(this.currentPlayable instanceof Song)
+		{
+			console.log("Play deezer song " + this.currentPlayable.id);
+			DZ.player.playTracks([this.currentPlayable.id]);
+			DZ.player.play();
+			this.updateState('playing');
 		}
 	}
 	  
@@ -362,10 +442,13 @@ class Mediaplayer{
 		}
 	}
 	  
-	stop() {
+	stop(isInternal=false) {
 		if(this.currentPlayable instanceof Playable)
 		{
-			this.updateState('stopped');
+			if(!isInternal)
+			{
+				this.updateState('stopped');				
+			}
 			
 			if(this.currentPlayable instanceof News)
 			{
@@ -373,52 +456,56 @@ class Mediaplayer{
 			}
 			else if(this.currentPlayable instanceof Song)
 			{
-				DZ.player.play();
+				DZ.player.pause();
 			}
-			this.currentPlayable=null;
 		}
 	}
 	
 	skip() {
-		var nextPlayable=this.playables.shift();
-		this.controller.move_down();
-		if (nextPlayable instanceof News)
+		
+		// var nextPlayable=this.playables.shift();
+		var nextPlayable=this.controller.getNextPlayable();
+		
+		if(nextPlayable!=null)
 		{
-			DZ.player.pause();
-			
-			var parameters = {
-				onend: this.skip.bind(this)
-			}
-			responsiveVoice.speak(nextPlayable.data,"Deutsch Female",parameters);
+			this.stop(true);
 			this.currentPlayable=nextPlayable;
-		}
-		else if(nextPlayable instanceof Song)
-		{
-			DZ.player.playTracks([nextPlayable.id]);
-			DZ.player.play();
+			this.play();
 		}
 	}
 	
-	getPlayables() {
-		var playables=this.controller.queryAndInsert();
-		console.log(playables)
-		for (var pl=0;pl<playables.length;pl++)
+	prev()
+	{
+		// var nextPlayable=this.playables.shift();
+		var prevPlayable=this.controller.getPreviousPlayable();
+		if(prevPlayable!=null)
 		{
-			this.addPlayable(new News(playables[pl].title + "." + playables[pl].text));
+			this.stop(true);
+			this.currentPlayable=prevPlayable;
+			this.play();
 		}
 	}
 	
+	// getPlayables() {
+		// var playables=this.controller.queryAndInsert();
+		// console.log(playables)
+		// for (var pl=0;pl<playables.length;pl++)
+		// {
+			// this.addPlayable(new News(playables[pl].title + "." + playables[pl].text));
+		// }
+	// }
 	
-	addPlayable(playable) {
-		if(playable instanceof Playable)
-		{
-			this.playables.push(playable);
-			console.log(this.playables.length);
-		}
-		else
-		{
-			console.log('Cannot add non Playable object');
-		}
-	}
+	
+	// addPlayable(playable) {
+		// if(playable instanceof Playable)
+		// {
+			// this.playables.push(playable);
+			// console.log(this.playables.length);
+		// }
+		// else
+		// {
+			// console.log('Cannot add non Playable object');
+		// }
+	// }
 }
 

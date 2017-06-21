@@ -22,7 +22,7 @@
 .playable_container{
 	background-color: #C0C0C0;
 	overflow-y: scroll;
-	max-height: 400px;
+	max-height: 300px;
 }
 .equal{
 	background-color: lightgrey;
