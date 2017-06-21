@@ -199,8 +199,12 @@ class Controller {
 	
 	shuffle(a,limitIndex) {
 		var j, x, i;
+		j=0;
 		for (i = a.length; i>limitIndex; i--) {
-			j = Math.floor(Math.random() * i);
+			while(j<limitIndex)
+			{
+				j = Math.floor(Math.random() * i);
+			}
 			x = a[i - 1];
 			a[i - 1] = a[j];
 			a[j] = x;
