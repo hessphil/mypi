@@ -413,8 +413,7 @@ class Mediaplayer{
 		});
 		
 		DZ.Event.subscribe('track_end', function(track_end){
-			console.log("Track ended");
-			this.skip.bind(this);
+			this.skip();
 		}.bind(this));
 		
 	}
