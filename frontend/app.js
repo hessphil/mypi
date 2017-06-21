@@ -9,10 +9,10 @@ class Controller {
 		this.playableIndex=1;
 		
 		this.playableList.push(new News("Schön dich wiederzusehen Max!"))
-		this.addPlayableDiv("../pics/app_mypi.svg","Schoen dich wiederzusehen Max!", "");
-		
-		document.getElementById('playCon').scrollTop=0
-		
+		this.addPlayableDiv("../pics/mypi_logo_square2.png","Schoen dich wiederzusehen Max!", "","null");
+
+        document.getElementById('playCon').scrollTop = 0
+
 		this.queryNewsAndInsert();
 	}
 	
@@ -71,14 +71,18 @@ class Controller {
 			}
 		}
 		
-		
-	addPlayableDiv(img_url,content,NewsProvider) {
+	addPlayableDiv(img_url,content,NewsProvider,source) {
 		var div = document.createElement('div');
 		var img = document.createElement('img');
 		var div_detail = document.createElement('div');
 		var img_src = document.createElement('img');
 		var strong = document.createElement('strong');
+		var a = document.createElement('a');
 		
+		if(source!="null"){
+			a.href=source;
+			a.target="_blank";
+		}
 
 		img.src=img_url;	
 		img.className="preview-img";
@@ -86,6 +90,7 @@ class Controller {
 		div_detail.className="details";
 		
 		strong.innerHTML=content;
+		
 		div_detail.appendChild(strong);
 		
 		if(NewsProvider === 'spiegel-online'){
@@ -117,8 +122,20 @@ class Controller {
 		div.appendChild(div_detail);
 		div.appendChild(img_src);
 		
+		if(source!="null"){
+			a.appendChild(div);
+		}
+		
 		var parent = document.getElementById('playCon');
-		this.insertAfter(div, parent.lastChild);
+		
+		if(source!="null"){
+			this.insertAfter(a, parent.lastChild);
+			
+		}
+		else{
+			this.insertAfter(div, parent.lastChild);
+		}
+		
 		this.counter++;
 	}
 	
@@ -150,7 +167,7 @@ class Controller {
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl))
+			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].provider,playables[pl].source))
 		}
 		return playables;
 	}
@@ -214,7 +231,7 @@ class Controller {
 					{
 						var deezerTrack = response.tracks.data[i]
 						//fill news with data
-						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration,"deezer");
+						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration);
 						
 						//add song to list
 						this.playableList.push(curSong);
@@ -232,11 +249,11 @@ class Controller {
 		var previewPlayable=this.playableList[index]
 		if(previewPlayable instanceof News)
 		{
-			this.addPlayableDiv(previewPlayable.imageUrl,previewPlayable.title, previewPlayable.provider);
+            this.addPlayableDiv(previewPlayable.imageUrl, previewPlayable.title, previewPlayable.provider,previewPlayable.source);
 		}
 		else if(previewPlayable instanceof Song)
 		{
-			this.addPlayableDiv(previewPlayable.imageUrl,previewPlayable.interpret+" - "+previewPlayable.title, previewPlayable.provider);
+            this.addPlayableDiv(previewPlayable.imageUrl, previewPlayable.interpret + " - " + previewPlayable.title, "deezer", "null");
 		}
 	}
 	
@@ -327,17 +344,20 @@ Playable.prototype.data = "";
 
 
 
-var News = function(text,title,imageUrl) {
+var News = function(text,title,imageUrl,provider,source) {
     Playable.apply(this, [text]);
 	this.text=text;
 	this.imageUrl=imageUrl;
 	this.title=title;
+	this.provider=provider;
+	this.source=source;
 };
 News.prototype = Object.create(Playable.prototype);
 News.prototype.constructor = News;
 News.prototype.text="";
 News.prototype.imageUrl="";
 News.prototype.title="";
+News.prototype.source="";
 
 var Song = function(id,title,interpret,album,imageUrl,songUrl,duration,provider) {
     Playable.apply(this, [title]);
@@ -388,6 +408,11 @@ class Mediaplayer{
 				onload : this.onPlayerLoaded.bind(this)
 			}
 		});
+		
+		DZ.Event.subscribe('track_end', function(track_end){
+			console.log("Track ended");
+			this.skip.bind(this);
+		}.bind(this));
 		
 	}
 	
@@ -512,27 +537,5 @@ class Mediaplayer{
 			this.play();
 		}
 	}
-	
-	// getPlayables() {
-		// var playables=this.controller.queryAndInsert();
-		// console.log(playables)
-		// for (var pl=0;pl<playables.length;pl++)
-		// {
-			// this.addPlayable(new News(playables[pl].title + "." + playables[pl].text));
-		// }
-	// }
-	
-	
-	// addPlayable(playable) {
-		// if(playable instanceof Playable)
-		// {
-			// this.playables.push(playable);
-			// console.log(this.playables.length);
-		// }
-		// else
-		// {
-			// console.log('Cannot add non Playable object');
-		// }
-	// }
 }
 

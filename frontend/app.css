@@ -57,6 +57,7 @@
 }
 .playable{
 	height: 100px;
+	color: rgba(51,51,51,255);
 }
 .preview-src-focus{
 	width: 20%;
