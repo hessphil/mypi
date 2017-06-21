@@ -236,7 +236,7 @@ class Controller {
 		}
 		else if(previewPlayable instanceof Song)
 		{
-            this.addPlayableDiv(previewPlayable.imageUrl, previewPlayable.interpret + " - " + previewPlayable.title, previewPlayable.provider, "null");
+            this.addPlayableDiv(previewPlayable.imageUrl, previewPlayable.interpret + " - " + previewPlayable.title, "deezer", "null");
 		}
 	}
 	
