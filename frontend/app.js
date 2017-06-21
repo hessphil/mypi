@@ -1,7 +1,7 @@
 class Controller { 
 	constructor() {
 		this.counter=0;
-		this.scrollPos=0;
+		// this.scrollPos=0;
 		this.deezer_logged_in=0;
 		this.playlist_id=0;
 		this.playableList=[];
@@ -9,44 +9,34 @@ class Controller {
 		this.playableIndex=1;
 		
 		this.playableList.push(new News("Schön dich wiederzusehen Max!"))
-		this.addPlayableDiv("../pics/mypi_logo_square.png","Schoen dich wiederzusehen Max!", "");
+		this.addPlayableDiv("../pics/app_mypi.svg","Schoen dich wiederzusehen Max!", "");
+		
+		document.getElementById('playCon').scrollTop=0
 		
 		this.queryNewsAndInsert();
 	}
 	
 	httpGet(theUrl) {
 		var xmlHttp = new XMLHttpRequest();
-		console.log(theUrl)
 		xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
 		xmlHttp.send( null );
 		return xmlHttp.responseText;
 	}
 	move_down() {
-		document.getElementById('playCon').scrollTop = (this.scrollPos+100);
-		this.scrollPos = document.getElementById('playCon').scrollTop;
+		document.getElementById('playCon').scrollTop+=100
 	}
 
 	move_up() {
 		document.getElementById('playCon').scrollTop -= 100;
-		this.scrollPos = document.getElementById('playCon').scrollTop;
     }
 
-	chg() {
-	  document.getElementById('playCon').style.height = "300px";
-	}
 	
-	chg2() {
-	  document.getElementById('playCon').style.height = "0px";
-	}
-	
-	getNewsFromServer() {
+	getNews() {
 		// Read the API token from Cookie
 		// Query data until we get a valid response
 		var x = document.cookie.substring(0,25)
-		console.log(x)
 		var url = "http://localhost:8080/getNews/" + x.split("=")[1];
 		var jsonNewsTest = JSON.parse(this.httpGet(url));
-		console.log(jsonNewsTest);
 		return jsonNewsTest;
 	}
 	
@@ -63,6 +53,7 @@ class Controller {
 				parent.insertBefore(newElement, targetElement.nextSibling);
 			}
 		}
+		
 		
 	addPlayableDiv(img_url,content,NewsProvider) {
 		var div = document.createElement('div');
@@ -121,35 +112,43 @@ class Controller {
 		this.counter--;
 	}
 	
+	addToPlayList(playable){
+		//check priority and calculate position in queue (even at highest prio)
+		
+		//get the next five items
+		var forcastList=[]
+		for (var pl=0;pl<5 && (pl + this.playableIndex) < this.playableList.length;pl++)
+		{
+			forcastList.push(this.playableList)
+			
+		}
+		//if position is one ahead of current replace preview div 
+		
+	}
+	
+	
 	queryNewsAndInsert(){
 		var playables;
-		playables=this.getNewsFromServer();
-		console.log("Found " + playables.length + " news")
-		
+		playables=this.getNews();
 		for (var pl=0;pl<playables.length;pl++)
 		{
 			console.log(playables[pl].imageUrl);
-			this.addPlayableDiv(playables[pl].imageUrl,playables[pl].title, playables[pl].provider);
-			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text))
+			this.playableList.push(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl))
 		}
 		return playables;
 	}
 	
 	updateState(oldState,newState){
 		var el = $(".player_play").first()
-		console.log("UpdateState")
-		
 		if(newState=='playing') 
 		{
 			el.src='../pics/pause.svg'
 			el.removeClass('player_button_play').addClass('player_button_pause');
-			console.log("playing now")
 		}
 		else if(newState=='paused' || newState=='stopped')
 		{
 			el.src='../pics/play.svg'
 			el.removeClass('player_button_pause').addClass('player_button_play');
-			console.log("pausing/stopping now")
 		}
 		else if(newState=='loading')
 		{
@@ -181,10 +180,6 @@ class Controller {
 		{
 			DZ.api('user/me/playlists', 'GET', function(response){
 				var leisurePlaylist = null;
-					
-				console.log(response.data)
-				
-				
 				for (var i=0;i<response.data.length;i++)
 				{
 					if(response.data[i].title=="Leisure")
@@ -194,23 +189,15 @@ class Controller {
 					}
 				}
 				
-				console.log("My new playlist ID", leisurePlaylist.id);
-				
 				this.playlist_id=leisurePlaylist.id
-				
 				
 				DZ.api('playlist/' + this.playlist_id, 'GET', function(response){
 					
-					console.log(response.tracks.data)
 					for (var i=0;i<response.tracks.data.length;i++)
 					{
 						var deezerTrack = response.tracks.data[i]
-						console.log(deezerTrack)
 						//fill news with data
-						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration);
-						
-						console.log(curSong.title);
-						this.addPlayableDiv(curSong.imageUrl,curSong.interpret+" - "+curSong.title,"deezer");
+						var curSong = new Song(deezerTrack.id,deezerTrack.title,deezerTrack.artist.name,deezerTrack.album.name,deezerTrack.album.cover,deezerTrack.link,deezerTrack.duration,"deezer");
 						
 						//add song to list
 						this.playableList.push(curSong);
@@ -223,24 +210,64 @@ class Controller {
 	}
 	
 	
-	getCurrentPlayable()
+	addPreviewDiv(index)
 	{
-		console.log("Now " + this.playableIndex)
-		console.log("Now " + this.scrollPos)
+		var previewPlayable=this.playableList[index]
+		if(previewPlayable instanceof News)
+		{
+			this.addPlayableDiv(previewPlayable.imageUrl,previewPlayable.title, previewPlayable.provider);
+		}
+		else if(previewPlayable instanceof Song)
+		{
+			this.addPlayableDiv(previewPlayable.imageUrl,previewPlayable.interpret+" - "+previewPlayable.title, previewPlayable.provider);
+		}
+	}
+	
+	removePreviewDiv()
+	{
+		var parent = document.getElementById('playCon');
+		parent.removeChild(parent.lastChild);
+		this.counter--;
+	}
+	
+	getCurrentPlayable(intern=false)
+	{
+		if(this.playableIndex==1 && !intern)
+		{
+			this.addPreviewDiv(this.playableIndex);
+			this.addPreviewDiv(this.playableIndex+1);
+			
+		}
+
+		
 		return this.playableList[this.playableIndex];
 	}
 	
-	
+	//ensure that getCurrentPlayable() was called once before!
 	getNextPlayable()
 	{
 		if(this.playableList.length > this.playableIndex+1)
 		{
-			if(this.playableIndex!=this.playableList.length)
+			
+			//already added by getCurrentPlayable(true) but we still need to move down once for it..
+			
+			if(this.playableIndex!=1)
 			{
 				this.move_down();
+				this.move_down();
 			}
-			this.playableIndex=this.playableIndex+1
-			return this.getCurrentPlayable();
+			
+			this.playableIndex=this.playableIndex+1;
+			this.addPreviewDiv(this.playableIndex+1);
+
+	
+			if(this.playableIndex!=this.playableList.length)
+			{
+				console.log("Move down")
+				this.move_down();
+			}
+		
+			return this.getCurrentPlayable(true);
 		}
 		//disable_next_button();
 		return null;
@@ -251,42 +278,20 @@ class Controller {
 	{
 		if(this.playableIndex-1 >= 1)
 		{
-			if(this.playableIndex!=1)
-			{				
-				this.move_up();
-			}
+			var prevIndex=this.playableIndex;
 			this.playableIndex=this.playableIndex-1;
-			return this.getCurrentPlayable();
+			this.removePreviewDiv();
+			//moving up is obsolete if prevew div is removed
+			// if(prevIndex!=1)
+			// {				
+				// this.move_up();
+			// }
+			return this.getCurrentPlayable(true);
 		}
 		
 		//disable_prev_button();
 		return null;
 	}
-	
-	checkNextPlayable()
-	{
-		var nextIndex=this.playableIndex + 1
-		if(this.playableList.length > nextIndex)
-		{
-			this.move_down();
-			return this.playableList[nextIndex];
-		}
-		return null;
-	}
-	
-	checkPrevPlayable()
-	{
-		var prevIndex=this.playableIndex-1
-		if(prevIndex >= 0)
-		{
-			this.move_up();
-			return this.playableList[prevIndex - 1];
-		}
-		
-		//disable_prev_button();
-		return null;
-	}
-	
 }
 
 
@@ -294,26 +299,30 @@ class Controller {
  @constructor
  @abstract
  */
-var Playable = function(data) {
+var Playable = function(text) {
     if (this.constructor === Playable) {
       throw new Error("Can't instantiate abstract class!");
     }
-	this.data=data;
+	this.data=text;
 	this.view=null;
 };
 Playable.prototype.data = "";
 
 
 
-var News = function(text) {
+var News = function(text,title,imageUrl) {
     Playable.apply(this, [text]);
+	this.text=text;
+	this.imageUrl=imageUrl;
+	this.title=title;
 };
 News.prototype = Object.create(Playable.prototype);
 News.prototype.constructor = News;
-News.prototype.data="";
+News.prototype.text="";
+News.prototype.imageUrl="";
+News.prototype.title="";
 
-
-var Song = function(id,title,interpret,album,imageUrl,songUrl,duration) {
+var Song = function(id,title,interpret,album,imageUrl,songUrl,duration,provider) {
     Playable.apply(this, [title]);
 	this.id=id;
 	this.title=title;
@@ -322,6 +331,7 @@ var Song = function(id,title,interpret,album,imageUrl,songUrl,duration) {
 	this.imageUrl=imageUrl;
 	this.songUrl=songUrl;
 	this.duration=duration;
+	this.provider=provider;
 };
 Song.prototype = Object.create(Playable.prototype);
 Song.prototype.constructor = Song;
@@ -333,6 +343,7 @@ Song.prototype.album="";
 Song.prototype.imageUrl="";
 Song.prototype.songUrl="";
 Song.prototype.duration="";
+Song.prototype.provider="";
 
 class Mediaplayer{ 
 	constructor(id,apikey,controller) {
@@ -343,8 +354,7 @@ class Mediaplayer{
 		this.positionPoll=null;
 		this.currentPlayable=null;
 		this.controller=controller;
-		//this.getPlayables();
-		
+				
 		$("#prevMediaplayer").prop("disabled", true);
 		$("#nextMediaplayer").prop("disabled", true);
 		
@@ -361,6 +371,7 @@ class Mediaplayer{
 				onload : this.onPlayerLoaded.bind(this)
 			}
 		});
+		
 	}
 	
 	onPlayerLoaded() {
@@ -378,14 +389,6 @@ class Mediaplayer{
 		if(this.controller.deezer_logged_in==0)
 		{
 			this.controller.deezerLogin(function(){
-				console.log("deezerLogin callback")
-				// console.log(this.controller.songList)
-				// var playables=this.controller.songList;
-				// for (var i=0;i<playables.length;i++)
-				// {
-					// console.log("Add " + playables[i].title)
-					// this.addPlayable(playables[i])		
-				// }
 				$("#prevMediaplayer").prop("disabled", false);
 				$("#nextMediaplayer").prop("disabled", false);
 				this.play();
@@ -407,7 +410,7 @@ class Mediaplayer{
 			}
 			this.updateState('playing');
 			console.log(this.id + ' plays.');
-			responsiveVoice.speak(this.currentPlayable.data,"Deutsch Female",parameters);
+			responsiveVoice.speak(this.currentPlayable.text,"Deutsch Female",parameters);
 		}
 		else if(this.currentPlayable instanceof Song)
 		{
