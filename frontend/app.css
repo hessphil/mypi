@@ -9,11 +9,25 @@
 	height:68px;
 	background-color:#009EE2;
 }
+
+.extendminimizeFront{
+	min-width:500px;
+	max-width:500px;
+	height:27px;
+	background-color:transparent;
+}
+
 .img-responsive {
 	padding:20px;
 }
 
 .button_container{
+	width: 50%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;	
+}
+.extendminimizeFront_container{
 	width: 50%;
 	margin-left:auto;
 	margin-right:auto;
@@ -93,6 +107,16 @@
 	width: 27%;
 	background-color: #88dcff;
 	padding:10px;
+}
+.switch_button{
+	width: 20%;
+	background-color: transparent;
+	padding:5px;
+	display: inline-block;
+	border-radius:10px;
+}
+.switch_button:hover{
+	background-color: #88dcff;
 }
 
 .player_button{

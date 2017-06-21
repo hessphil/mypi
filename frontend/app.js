@@ -29,7 +29,24 @@ class Controller {
 	move_up() {
 		document.getElementById('playCon').scrollTop -= 100;
     }
+	
 
+
+	changeDiv()
+	{
+		if (document.getElementById('minimize'))
+		{
+			document.getElementById('playCon').style.height="0px";
+			document.getElementById('minimize').src="../pics/down.png";
+			document.getElementById('minimize').setAttribute("id","extend");
+		}
+		else
+		{
+			document.getElementById('playCon').style.height="400px";
+			document.getElementById('extend').src="../pics/up.png";
+			document.getElementById('extend').setAttribute("id","minimize");
+		}
+	}
 	
 	getNews() {
 		// Read the API token from Cookie

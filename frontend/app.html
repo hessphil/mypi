@@ -64,10 +64,10 @@
 				controller.move_down();
 			});
 			$("#extend").click(function(event) {
-				controller.chg();
+				controller.changeDiv();
 			});
 			$("#minimize").click(function(event) {
-				controller.chg2();
+				controller.changeDiv();
 			});
 		});
 	</script>
@@ -93,13 +93,17 @@
 		
 	</div>
 	
+		<div class="extendminimizeFront center-block">
+		<div class="extendminimizeFront_container">
+				<img src="../pics/up.png" id="minimize" class="switch_button" ></img>
+		</div>
+	</div>
 	
 	<button type="button" id="test">News</button>
 	<button type="button" id="stopMediaplayer">Stop</button>
 	<button type="button" id="insert">Insert</button>
 	<button type="button" id="remove">Remove</button>
 	<button type="button" id="moveDown">Move Down</button>
-	<button type="button" id="extend">Extend</button>
-	<button type="button" id="minimize">Minimize</button>
+
 </body>
 </html>
