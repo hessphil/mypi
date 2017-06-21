@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="275" y="67" width="355.3" height="354"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_2_)" fill="#575756" d="M452.7,421c98.1,0,177.7-79.2,177.7-177S550.8,67,452.7,67S275,146.2,275,244
+		S354.5,421,452.7,421"/>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="5.514" x1="562.7" y1="177" x2="324.4" y2="177"/>
+<g>
+	<defs>
+		<rect id="SVGID_3_" x="275" y="67" width="355.3" height="354"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_4_)" fill="#009EE2" d="M544.5,177c0,10.2,8.2,18.5,18.2,18.5c10.1,0,18.2-8.3,18.2-18.5
+		c0-10.2-8.2-18.5-18.2-18.5C552.7,158.5,544.5,166.8,544.5,177"/>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="5.514" x1="562.7" y1="311" x2="324.4" y2="311"/>
+<g>
+	<defs>
+		<rect id="SVGID_5_" x="275" y="67" width="355.3" height="354"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_6_)" fill="#009EE2" d="M544.5,311c0,10.2,8.2,18.5,18.2,18.5c10.1,0,18.2-8.3,18.2-18.5
+		s-8.2-18.5-18.2-18.5C552.7,292.5,544.5,300.8,544.5,311"/>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="5.514" x1="342.6" y1="244" x2="580.9" y2="244"/>
+<g>
+	<defs>
+		<rect id="SVGID_7_" x="275" y="67" width="355.3" height="354"/>
+	</defs>
+	<clipPath id="SVGID_8_">
+		<use xlink:href="#SVGID_7_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_8_)" fill="#009EE2" d="M360.8,244c0-10.2-8.2-18.5-18.2-18.5c-10.1,0-18.2,8.3-18.2,18.5
+		c0,10.2,8.2,18.5,18.2,18.5C352.6,262.5,360.8,254.2,360.8,244"/>
+</g>
+</svg>
