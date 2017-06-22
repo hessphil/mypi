@@ -5,6 +5,7 @@
 	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script type="text/javascript" src="http://e-cdn-files.deezer.com/js/min/dz.js"></script>
+	<script src="./artyom/artyom.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="./app.css">
@@ -12,6 +13,113 @@
 		$(document).ready(function(){
 			var controller = new Controller();
 			var mediaplayer = new Mediaplayer('1','238322',controller);
+		
+			<!-- if (annyang) { -->
+			  <!-- // Let's define our first command. First the text we expect, and then the function it should call -->
+			  <!-- var commands = { -->
+				<!-- 'play': function() { -->
+				  <!-- console.log("play") -->
+				  <!-- mediaplayer.play(); -->
+				<!-- }, -->
+				<!-- 'pause': function() { -->
+				  <!-- console.log("pause") -->
+				  <!-- mediaplayer.pause(); -->
+				<!-- } -->
+			  <!-- }; -->
+
+			  <!-- // Add our commands to annyang -->
+			  <!-- annyang.addCommands(commands); -->
+
+			  <!-- // Start listening. You can call this here, or attach this call to an event, button, etc. -->
+			  <!-- annyang.start(); -->
+			<!-- } -->
+			
+			// Start the commands !
+			artyom.initialize({
+				lang: "en-US", // GreatBritain english
+				continuous: true, // Listen forever
+				soundex: true,// Use the soundex algorithm to increase accuracy
+				debug: true, // Show messages in the console
+				listen: true // Start to listen commands !
+			}).then(() => {
+				console.log("Artyom has been succesfully initialized");
+			}).catch((err) => {
+				console.error("Artyom couldn't be initialized: ", err);
+			});
+
+			// or add some commandsDemostrations in the normal way
+			var commandIncoming=false;
+			artyom.addCommands([
+					{
+					description: 'stop',
+					indexes: ['stop'],
+					action: (i) => {
+						if(commandIncoming)
+						{
+							$(".player_play").click();
+							$(".playerFront").css('background-color', '#009EE2');
+							commandIncoming=false
+						}
+					}
+					},
+					{
+					description: 'start',
+					indexes: ['start'],
+					action: (i) => {
+						if(commandIncoming)
+						{
+							$(".player_play").click();
+							$(".playerFront").css('background-color', '#009EE2');
+							commandIncoming=false
+						}
+					}
+					},
+					{
+					description: 'next',
+					indexes: ['next'],
+					action: (i) => {
+						if(commandIncoming)
+						{
+							$("#skipMediaplayer").click();
+							$(".playerFront").css('background-color', '#009EE2');
+							commandIncoming=false
+						}
+					}
+					},
+					{
+					description: 'previous',
+					indexes: ['previous'],
+					action: (i) => {
+						if(commandIncoming)
+						{
+							$("#prevMediaplayer").click();
+							$(".playerFront").css('background-color', '#009EE2');
+							commandIncoming=false
+						}
+					}
+					},
+					{
+					description: 'my p',
+					indexes: ['my *'],
+					smart: true,
+					action: (i,wildcard) => {
+						console.log("my p")
+						$(".playerFront").css('background-color', 'red');
+						commandIncoming=true
+					}
+					},
+					{
+					description: 'no',
+					indexes: ['no'],
+					action: (i) => {
+						if(commandIncoming)
+						{
+							$(".playerFront").css('background-color', '#009EE2');
+							commandIncoming=false
+						}
+					}
+					}
+			]);
 		
 			$(".player_play").click(function(event) {
 				console.log("State: " + mediaplayer.state);
