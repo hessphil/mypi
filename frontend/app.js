@@ -8,12 +8,10 @@ class Controller {
 		
 		this.playableIndex=1;
 		
-		this.playableList.push(new News("Sch�n dich wiederzusehen Max!"))
-		this.addPlayableDiv("../pics/mypi_logo_square2.png","Schoen dich wiederzusehen Max!", "","null");
+		this.playableList.push(new News("Schön dich wiederzusehen Max!"))
+		this.addPlayableDiv("../pics/mypi_logo_square2.png","Schön dich wiederzusehen Max!", "","null");
 
         document.getElementById('playCon').scrollTop = 0
-
-		this.queryNewsAndInsert();
 	}
 	
 	httpGet(theUrl) {
@@ -479,6 +477,8 @@ class Mediaplayer{
 	play() {
 		if(this.controller.deezer_logged_in==0)
 		{
+			this.controller.queryNewsAndInsert();
+			
 			this.controller.deezerLogin(function(){
 				$("#prevMediaplayer").prop("disabled", false);
 				$("#nextMediaplayer").prop("disabled", false);
