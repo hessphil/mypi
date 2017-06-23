@@ -117,7 +117,7 @@ class Controller {
 		}
 		else
 		{
-			div.className="playable";
+			div.className="playable unequal";
 		}
 		div.appendChild(img);
 		div.appendChild(div_detail);
@@ -146,6 +146,19 @@ class Controller {
 		parent.removeChild(parent.childNodes[0]);
 		this.counter--;
 	}
+	
+	setActive(){
+		var parent = document.getElementById('playCon');
+		var pos = parent.childNodes.length -2;
+
+		for(var i=1;i<parent.childNodes.length;i++){
+			
+			parent.childNodes[i].style.opacity = "0.4";
+		}
+		parent.childNodes[pos].style.opacity = "1";
+	}
+	
+	
 	
 	addToPlayList(playable){
 		//check priority and calculate position in queue (even at highest prio)
@@ -321,7 +334,7 @@ class Controller {
 			this.addPreviewDiv(this.playableIndex+1);
 			
 		}
-
+		this.setActive();
 		
 		return this.playableList[this.playableIndex];
 	}

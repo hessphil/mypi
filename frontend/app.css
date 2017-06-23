@@ -40,7 +40,11 @@
 	transition: all .5s linear;
 }
 .equal{
-	background-color: lightgrey;
+	background-color: rgba(211,211,211,1);
+}
+.unequal{
+	background-color: rgba(190,190,190,1);
+
 }
 
 .preview-img{
@@ -131,5 +135,8 @@
 	background-color: #88dcff;
 }
 #dz-root{
+	visibility:hidden;
+}
+#skipMediaplayer,#prevMediaplayer,#extFrontCont{
 	visibility:hidden;
 }

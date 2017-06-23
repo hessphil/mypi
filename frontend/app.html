@@ -104,6 +104,11 @@
 		
 			$(".player_play").click(function(event) {
 				console.log("State: " + mediaplayer.state);
+				if($('#extFrontCont').css("visibility")=="hidden"){
+					$('#extFrontCont').css("visibility", "visible");
+					$('#prevMediaplayer').css("visibility", "visible");
+					$('#skipMediaplayer').css("visibility", "visible");
+				}
 				if(mediaplayer.state=='playing')
 				{
 					mediaplayer.pause();
@@ -183,7 +188,7 @@
 	</div>
 	
 		<div class="extendminimizeFront center-block">
-		<div class="extendminimizeFront_container">
+		<div class="extendminimizeFront_container" id="extFrontCont">
 				<img src="../pics/up.png" id="minimize" class="switch_button" ></img>
 		</div>
 	</div>
