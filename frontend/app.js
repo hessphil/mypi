@@ -179,8 +179,16 @@ class Controller {
 		
 		
 		// --> WTF simply do a shuffle of all upcoming now
-		this.playableList.push(playable)
-		this.playableList=this.shuffle(this.playableList,this.playableIndex)
+		if(playable instanceof Song || playable instanceof News)
+		{			
+			this.playableList.push(playable)
+			this.playableList=this.shuffle(this.playableList,this.playableIndex)
+		} 
+		else if(playable instanceof EMail)
+		{
+			this.playableList.splice((Number(this.playableIndex)+2), 0, playable);
+		}
+		
 		// var forcastList=[]
 		// for (var pl=this.playableIndex+1; (pl + this.playableIndex) < this.playableList.length;pl++)
 		// {
@@ -232,6 +240,12 @@ class Controller {
 			this.addToPlayList(new News(playables[pl].title + "." + playables[pl].text,playables[pl].title,playables[pl].imageUrl,playables[pl].provider,playables[pl].source))
 		}
 		return playables;
+	}
+	
+	queryMailsAndInsert(){
+		
+		//var EMail = function(id,sender,subject,content,provider)
+		this.addToPlayList(new EMail(1,"Marc Zuckerberg","Ihr rockt!","Ich kaufe euch fuer eine Milliarde",""))
 	}
 	
 	updateState(oldState,newState){
@@ -316,6 +330,10 @@ class Controller {
 		else if(previewPlayable instanceof Song)
 		{
             this.addPlayableDiv(previewPlayable.imageUrl, previewPlayable.interpret + " - " + previewPlayable.title, "deezer", "null");
+		}
+		else if(previewPlayable instanceof EMail)
+		{
+            this.addPlayableDiv('../pics/mail.png', previewPlayable.sender + " - " + previewPlayable.subject, "", "null");
 		}
 	}
 	
@@ -443,6 +461,24 @@ Song.prototype.songUrl="";
 Song.prototype.duration="";
 Song.prototype.provider="";
 
+
+var EMail = function(id,sender,subject,content,provider) {
+    Playable.apply(this, [subject]);
+	this.id=id;
+	this.sender=sender;
+	this.subject=subject;
+	this.content=content;
+	this.provider=provider;
+};
+EMail.prototype = Object.create(Playable.prototype);
+EMail.prototype.constructor = EMail;
+EMail.prototype.data="";
+EMail.prototype.id="";
+EMail.prototype.sender="";
+EMail.prototype.subject="";
+EMail.prototype.content="";
+EMail.prototype.provider="";
+
 class Mediaplayer{ 
 	constructor(id,apikey,controller) {
 		this.id=id;
@@ -495,6 +531,8 @@ class Mediaplayer{
 			this.controller.deezerLogin(function(){
 				$("#prevMediaplayer").prop("disabled", false);
 				$("#nextMediaplayer").prop("disabled", false);
+				
+				this.controller.queryMailsAndInsert();
 				this.play();
 			}.bind(this));
 			return
@@ -507,18 +545,28 @@ class Mediaplayer{
 			this.stop(true);
 		}
 		
-		if (this.currentPlayable instanceof News)
+		if (this.currentPlayable instanceof News || this.currentPlayable instanceof EMail)
 		{
 			var parameters = {
 				onend: this.skip.bind(this)
 			}
 			this.updateState('playing');
-			console.log(this.id + ' plays.');
-			responsiveVoice.speak(this.currentPlayable.text,"Deutsch Female",parameters);
+			
+			var textToPlay=''
+			if (this.currentPlayable instanceof News)
+			{
+				textToPlay=this.currentPlayable.text
+			}
+			else if (this.currentPlayable instanceof EMail)
+			{
+				textToPlay="E-Mail von " + this.currentPlayable.sender + ". Betreff: " + this.currentPlayable.subject
+			} 
+
+			responsiveVoice.speak(textToPlay,"Deutsch Female",parameters);
+			
 		}
 		else if(this.currentPlayable instanceof Song)
 		{
-			console.log("Play deezer song " + this.currentPlayable.id);
 			DZ.player.playTracks([this.currentPlayable.id]);
 			DZ.player.play();
 			this.updateState('playing');
@@ -529,7 +577,7 @@ class Mediaplayer{
 		if(this.currentPlayable instanceof Playable)
 		{
 			this.updateState('paused');
-			if (this.currentPlayable instanceof News)
+			if (this.currentPlayable instanceof News || this.currentPlayable instanceof EMail)
 			{
 				responsiveVoice.pause();
 			}
@@ -545,7 +593,7 @@ class Mediaplayer{
 		{
 			this.updateState('playing');
 			
-			if (this.currentPlayable instanceof News)
+			if (this.currentPlayable instanceof News || this.currentPlayable instanceof EMail)
 			{
 				responsiveVoice.resume();
 			}
@@ -564,7 +612,7 @@ class Mediaplayer{
 				this.updateState('stopped');				
 			}
 			
-			if(this.currentPlayable instanceof News)
+			if(this.currentPlayable instanceof News || this.currentPlayable instanceof EMail)
 			{
 				responsiveVoice.cancel();
 			}
