@@ -83,6 +83,7 @@ class Controller {
 		if(source!="null"){
 			a.href=source;
 			a.target="_blank";
+			a.className="newsClass");
 		}
 
 		img.src=img_url;	
@@ -152,10 +153,19 @@ class Controller {
 		var pos = parent.childNodes.length -2;
 
 		for(var i=1;i<parent.childNodes.length;i++){
-			
+			if(parent.childNodes[i].className =='newsClass'){
+				parent.childNodes[i].childNodes[0].style.opacity = "0.4";
+			}
+			else{
 			parent.childNodes[i].style.opacity = "0.4";
+			}
 		}
-		parent.childNodes[pos].style.opacity = "1";
+		if(parent.childNodes[pos].className == 'newsClass'){
+			parent.childNodes[pos].childNodes[0].style.opacity = "1";
+		}
+		else{
+			parent.childNodes[pos].style.opacity = "1";
+		}
 	}
 	
 	
